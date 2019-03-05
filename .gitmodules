@@ -1,0 +1,3 @@
+[submodule "ECSTest/include/ECS"]
+	path = ECSTest/include/ECS
+	url = https://github.com/MitchellHodzen/ECS.git

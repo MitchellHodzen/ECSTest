@@ -1,7 +1,7 @@
-#include "ECS.h"
+#include "ECS/ECS.h"
 #include <iostream>
 #include "Components/c_position.h"
-#include "Components\c_test.h"
+#include "Components/c_test.h"
 
 /*
 

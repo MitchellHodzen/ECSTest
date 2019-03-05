@@ -97,7 +97,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Repositories\KECS\KECS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Repositories\ECSTest\ECSTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -142,12 +142,12 @@
     <ClInclude Include="include\Components\c_friction.h" />
     <ClInclude Include="include\Components\c_input.h" />
     <ClInclude Include="include\Components\c_rect.h" />
+    <ClInclude Include="include\ECS\ECS.h" />
+    <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Example.h" />
     <ClInclude Include="include\Components\c_test.h" />
     <ClInclude Include="include\Components\c_position.h" />
     <ClInclude Include="include\Components\c_velocity.h" />
-    <ClInclude Include="include\EntityManager.h" />
-    <ClInclude Include="include\ECS.h" />
     <ClInclude Include="include\MessageManager.h" />
     <ClInclude Include="include\Messages\m_collision.h" />
     <ClInclude Include="include\Stack.h" />
