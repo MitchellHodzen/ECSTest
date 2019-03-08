@@ -1,4 +1,4 @@
-#include "ECS/ECS.h"
+#include "kecs/KECS.h"
 #include <iostream>
 #include "Components/c_position.h"
 #include "Components/c_test.h"
@@ -22,7 +22,7 @@ void PrintEntitiesPositionAndVelocity(int entityIndex) {
 
 }
 */
-ECS::ECS()
+KECS::KECS()
 {
 	/*
 	EntityManager em(5);
@@ -53,7 +53,7 @@ ECS::ECS()
 }
 
 
-ECS::~ECS()
+KECS::~KECS()
 {
 }
 

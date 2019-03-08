@@ -1,9 +1,9 @@
 #include <iostream>
-#include "ECS/ECS.h"
+#include "kecs/KECS.h"
 #include "Example.h"
 int main(int argc, char *argv[])
 {
-	ECS ecs;
+	KECS ecs;
 	Example exec(800, 600);
 	exec.Run();
 	std::cin.get();

@@ -1,6 +1,6 @@
 #include "Example.h"
 #include <iostream>
-#include "ECS/ECS.h"
+#include "kecs/KECS.h"
 #include "Components/c_position.h"
 #include "Components/c_velocity.h"
 #include "Components/c_rect.h"
