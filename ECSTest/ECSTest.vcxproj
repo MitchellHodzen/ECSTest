@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -75,8 +75,8 @@
     <LibraryPath>C:\Libraries\SDL2-2.0.8\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Libraries\SDL2-2.0.8\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Libraries\SDL2_image-2.0.4\include;C:\Libraries\SDL2-2.0.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Libraries\SDL2-2.0.8\lib\x64;C:\Libraries\SDL2_image-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,7 +101,7 @@
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -134,13 +134,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Example.cpp" />
     <ClCompile Include="src\ECS.cpp" />
     <ClCompile Include="src\Entry.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\c_friction.h" />
     <ClInclude Include="include\Components\c_input.h" />
+    <ClInclude Include="include\Components\c_physics.h" />
     <ClInclude Include="include\Components\c_rect.h" />
     <ClInclude Include="include\ECS\ECS.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
@@ -155,6 +158,8 @@
     <ClInclude Include="include\Stack.h" />
     <ClInclude Include="include\Tags.h" />
     <ClInclude Include="include\Time.h" />
+    <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
