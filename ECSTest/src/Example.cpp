@@ -10,8 +10,11 @@
 #include "Time.h"
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
+#include "Renderer.h"
 void Example::Draw()
 {
+	Renderer::GetInstance().Draw();
+	/*
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Rect>();
@@ -26,6 +29,7 @@ void Example::Draw()
 		SDL_RenderFillRect(renderer, &fillRect);
 	}
 	SDL_RenderPresent(renderer);
+	*/
 }
 
 void Example::ApplyHorizontalPhysics()
@@ -294,7 +298,7 @@ Example::~Example()
 void Example::Run()
 {
 	//Run tests
-	if (InitSDL())
+	if (Renderer::GetInstance().Initialize(screenWidth, screenHeight))
 	{
 		EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput>();
 		EntityManager::SetUpTags<Player, Enemy, Wall>();
@@ -351,6 +355,7 @@ void Example::Run()
 		//EntityManager::DestroyEntity(ent1);
 		//ent1 = EntityManager::CreateEntity();
 		//std::cout << "Entity " << ent1 << " is an enemy and wall: " << EntityManager::HasTag<Enemy, Wall>(ent1) << std::endl;
+
 		SDL_Event e;
 
 
@@ -377,7 +382,7 @@ void Example::Run()
 				/*
 				else if (e.type == SDL_KEYDOWN)
 				{
-					//Select surfaces based on key press 
+					//Select surfaces based on key press
 					switch (e.key.keysym.sym)
 					{
 					case SDLK_UP:
@@ -408,55 +413,5 @@ void Example::Run()
 			HandleVerticalCollisions();
 			Draw();
 		}
-		CloseSDL();
 	}
-}
-
-bool Example::InitSDL()
-{
-	//Initialization flag 
-	bool success = true; 
-	//Initialize SDL 
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) 
-	{ 
-		std::cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;;
-		success = false;
-	} 
-	else 
-	{ 
-		//Create window 
-		window = SDL_CreateWindow( "ECS", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN ); 
-		if( window == nullptr ) 
-		{ 
-			std::cout << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
-			success = false; 
-		} 
-		else
-		{ 
-			//Create renderer for window 
-			renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED ); 
-			if( renderer == nullptr ) 
-			{ 
-				std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
-				success = false; 
-			}
-			else 
-			{ 
-				//Initialize renderer color 
-				SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF ); 
-			}
-		}
-	}
-	return success;
-}
-
-void Example::CloseSDL()
-{
-	//Destroy window 
-	SDL_DestroyWindow( window ); 
-	SDL_DestroyRenderer(renderer);
-	window = nullptr;
-	renderer = nullptr;
-	//Quit SDL subsystems
-	SDL_Quit();
 }

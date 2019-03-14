@@ -11,12 +11,12 @@ public:
 private:
 	int screenWidth;
 	int screenHeight;
-	bool InitSDL();
-	void CloseSDL();
-	SDL_Window* window = nullptr;
-	SDL_Surface* screenSurface = nullptr;
-	SDL_Renderer* renderer = nullptr; 
-	SDL_Texture* texture = nullptr;
+	//bool InitSDL();
+	//void CloseSDL();
+	//SDL_Window* window = nullptr;
+	//SDL_Surface* screenSurface = nullptr;
+	//SDL_Renderer* renderer = nullptr; 
+	//SDL_Texture* texture = nullptr;
 	void Draw();
 	void ApplyHorizontalPhysics();
 	void ApplyVerticalPhysics();
@@ -27,6 +27,6 @@ private:
 	void HandleVerticalCollisions();
 	bool RectsColliding(Rect rect1, Position pos1, Rect rect2, Position pos2);
 	static void Test();
-	bool quit;
+	bool quit = false;
 };
 
