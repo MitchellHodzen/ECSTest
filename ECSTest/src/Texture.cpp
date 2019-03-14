@@ -2,7 +2,7 @@
 
 Texture::Texture()
 {
-	texture = NULL;
+	sdlTexture = NULL;
 	width = 0;
 	height = 0;
 }
@@ -23,8 +23,8 @@ void Texture::LoadTexture(std::string path, SDL_Renderer* renderer)
 	}
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-		if (texture == NULL)
+		sdlTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		if (sdlTexture == NULL)
 		{
 			std::cout << "Unable to create texture. SDL error: " << SDL_GetError() << std::endl;
 		}
@@ -39,10 +39,10 @@ void Texture::LoadTexture(std::string path, SDL_Renderer* renderer)
 
 void Texture::FreeTexture()
 {
-	if (texture != NULL)
+	if (sdlTexture != NULL)
 	{
-		SDL_DestroyTexture(texture);
-		texture = NULL;
+		SDL_DestroyTexture(sdlTexture);
+		sdlTexture = NULL;
 		width = 0;
 		height = 0;
 	}
@@ -58,6 +58,7 @@ int Texture::GetHeight()
 }
 void Texture::Render(int posX, int posY, SDL_Rect* cutRect, SDL_Renderer* renderer, SDL_RendererFlip flip)
 {
+	//flip defaults to SDL_FLIP_NONE
 	if (cutRect == NULL || cutRect == nullptr)
 	{
 		std::cout << "cutRect is null" << std::endl;
@@ -75,6 +76,6 @@ void Texture::Render(int posX, int posY, SDL_Rect* cutRect, SDL_Renderer* render
 		SDL_Rect rect{ posX, posY, cutRect->w, cutRect->h };
 
 		//Not a memory leak? Memory is just slowly allocated but has an upper bounds
-		SDL_RenderCopyEx(renderer, texture, cutRect, &rect, 0.0, NULL, flip);
+		SDL_RenderCopyEx(renderer, sdlTexture, cutRect, &rect, 0.0, NULL, flip);
 	}
 }

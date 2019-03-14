@@ -11,13 +11,6 @@ public:
 private:
 	int screenWidth;
 	int screenHeight;
-	//bool InitSDL();
-	//void CloseSDL();
-	//SDL_Window* window = nullptr;
-	//SDL_Surface* screenSurface = nullptr;
-	//SDL_Renderer* renderer = nullptr; 
-	//SDL_Texture* texture = nullptr;
-	void Draw();
 	void ApplyHorizontalPhysics();
 	void ApplyVerticalPhysics();
 	void GetUserInput();

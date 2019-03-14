@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Example.cpp" />
     <ClCompile Include="src\ECS.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="include\Time.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

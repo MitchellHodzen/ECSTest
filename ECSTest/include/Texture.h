@@ -16,7 +16,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 private:
-	SDL_Texture* texture;
+	SDL_Texture* sdlTexture;
 	int width;
 	int height;
 };

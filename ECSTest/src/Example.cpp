@@ -11,26 +11,6 @@
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
 #include "Renderer.h"
-void Example::Draw()
-{
-	Renderer::GetInstance().Draw();
-	/*
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderClear(renderer);
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Rect>();
-
-	for (int entityIndex : entities)
-	{
-		//Render red filled quad 
-		Rect& rect = EntityManager::GetComponent<Rect>(entityIndex);
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		SDL_Rect fillRect = { pos.x + rect.offsetX, pos.y + rect.offsetY, rect.width, rect.height };
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
-		SDL_RenderFillRect(renderer, &fillRect);
-	}
-	SDL_RenderPresent(renderer);
-	*/
-}
 
 void Example::ApplyHorizontalPhysics()
 {
@@ -411,7 +391,7 @@ void Example::Run()
 			ApplyVerticalPhysics();
 			CheckCollisions();
 			HandleVerticalCollisions();
-			Draw();
+			Renderer::GetInstance().Draw();
 		}
 	}
 }
