@@ -11,6 +11,7 @@
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
 
 void Example::ApplyHorizontalPhysics()
 {
@@ -278,7 +279,7 @@ Example::~Example()
 void Example::Run()
 {
 	//Run tests
-	if (Renderer::GetInstance().Initialize(screenWidth, screenHeight))
+	if (Renderer::GetInstance().Initialize(screenWidth, screenHeight) && ResourceManager::GetInstance().Initialize())
 	{
 		EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput>();
 		EntityManager::SetUpTags<Player, Enemy, Wall>();

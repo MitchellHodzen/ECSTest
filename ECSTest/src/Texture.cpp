@@ -1,4 +1,5 @@
 #include "Texture.h"
+#include "Renderer.h"
 
 Texture::Texture()
 {
@@ -12,21 +13,24 @@ Texture::~Texture()
 	FreeTexture();
 }
 
-void Texture::LoadTexture(std::string path, SDL_Renderer* renderer)
+bool Texture::LoadTexture(std::string path)
 {
+	bool success = true;
 	FreeTexture();
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 	if (loadedSurface == NULL)
 	{
 		std::cout << "Unable to load image at path: " << path << " SDL_Error: " << SDL_GetError() << std::endl;
+		success = false;
 	}
 	else
 	{
-		sdlTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+		sdlTexture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSdlRenderer(), loadedSurface);
 		if (sdlTexture == NULL)
 		{
 			std::cout << "Unable to create texture. SDL error: " << SDL_GetError() << std::endl;
+			success = false;
 		}
 		else
 		{
@@ -35,6 +39,7 @@ void Texture::LoadTexture(std::string path, SDL_Renderer* renderer)
 		}
 		SDL_FreeSurface(loadedSurface);
 	}
+	return success;
 }
 
 void Texture::FreeTexture()

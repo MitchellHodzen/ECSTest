@@ -128,3 +128,8 @@ int Renderer::GetScreenHeight()
 {
 	return screenHeight;
 }
+
+SDL_Renderer* Renderer::GetSdlRenderer()
+{
+	return sdlRenderer;
+}

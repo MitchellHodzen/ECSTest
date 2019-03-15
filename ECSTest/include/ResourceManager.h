@@ -8,12 +8,17 @@ class Texture;
 class ResourceManager
 {
 public:
-	ResourceManager();
+	static ResourceManager& GetInstance();
 	~ResourceManager();
+	bool Initialize();
+	Texture* GetTexture(std::string key);
 private:
-	std::unordered_map<std::string, Texture*>* texturePointerMap;
+	static ResourceManager instance;
+	std::unordered_map<std::string, Texture*>* texturePointerMap = new std::unordered_map<std::string, Texture*>();;
 
-	void LoadSprites();
+	ResourceManager();
+	bool LoadSprites();
 	void UnloadSprites();
+	bool LoadSprite(std::string path, std::string key);
 };
 

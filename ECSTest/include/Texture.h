@@ -10,7 +10,7 @@ class Texture
 public:
 	Texture();
 	~Texture();
-	void LoadTexture(std::string path, SDL_Renderer* renderer);
+	bool LoadTexture(std::string path);
 	void FreeTexture();
 	void Render(int posX, int posY, SDL_Rect* cutRect, SDL_Renderer* renderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	int GetWidth();

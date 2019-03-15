@@ -13,6 +13,7 @@ public:
 	bool Initialize(int screenWidth, int screenHeight);
 	int GetScreenWidth();
 	int GetScreenHeight();
+	SDL_Renderer* GetSdlRenderer();
 
 private:
 	static Renderer instance;
