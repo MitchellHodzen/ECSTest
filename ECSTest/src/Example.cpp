@@ -12,6 +12,7 @@
 #include "Messages/m_collision.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "Components/c_sprite.h"
 
 void Example::ApplyHorizontalPhysics()
 {
@@ -281,7 +282,7 @@ void Example::Run()
 	//Run tests
 	if (Renderer::GetInstance().Initialize(screenWidth, screenHeight) && ResourceManager::GetInstance().Initialize())
 	{
-		EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput>();
+		EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput, Sprite>();
 		EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 		int ent0 = EntityManager::CreateEntity();
@@ -291,6 +292,7 @@ void Example::Run()
 		EntityManager::AddComponent<Velocity>(ent0);
 		EntityManager::AddComponent<Friction>(ent0);
 		EntityManager::AddComponent<UserInput>(ent0);
+		EntityManager::AddComponent<Sprite>(ent0);
 		Rect rect;
 		rect.width = 50;
 		rect.height = 50;
@@ -302,6 +304,10 @@ void Example::Run()
 		frict.amountX = 100.0f;
 		frict.amountY = 100.0f;
 		EntityManager::SetComponent<Friction>(ent0, frict);
+
+		Sprite sprite;
+		sprite.texture = ResourceManager::GetInstance().GetTexture("Ship1");
+		EntityManager::SetComponent<Sprite>(ent0, sprite);
 
 		Rect boxRect;
 		boxRect.width = 100;

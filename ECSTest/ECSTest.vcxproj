@@ -146,6 +146,7 @@
     <ClInclude Include="include\Components\c_input.h" />
     <ClInclude Include="include\Components\c_physics.h" />
     <ClInclude Include="include\Components\c_rect.h" />
+    <ClInclude Include="include\Components\c_sprite.h" />
     <ClInclude Include="include\ECS\ECS.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Example.h" />

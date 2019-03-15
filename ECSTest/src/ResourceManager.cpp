@@ -26,8 +26,8 @@ bool ResourceManager::Initialize() {
 
 bool ResourceManager::LoadSprites()
 {
-	Texture* shipTexture = new Texture();
-	return shipTexture->LoadTexture("./Resources/Sprites/ship1.png");
+
+	return LoadSprite("./Resources/Sprites/ship1.png", "Ship1");
 }
 
 bool ResourceManager::LoadSprite(std::string path, std::string key) 
