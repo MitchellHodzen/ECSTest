@@ -292,7 +292,7 @@ void Example::Run()
 		EntityManager::AddComponent<Velocity>(ent0);
 		EntityManager::AddComponent<Friction>(ent0);
 		EntityManager::AddComponent<UserInput>(ent0);
-		EntityManager::AddComponent<Sprite>(ent0);
+		//EntityManager::AddComponent<Sprite>(ent0);
 		Rect rect;
 		rect.width = 50;
 		rect.height = 50;
