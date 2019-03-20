@@ -13,6 +13,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Components/c_sprite.h"
+#include "InputManager.h"
 
 void Example::ApplyHorizontalPhysics()
 {
@@ -74,6 +75,8 @@ void Example::ApplyVerticalPhysics()
 
 void Example::GetUserInput()
 {
+	InputManager::GetInstance().GetUserInput();
+	/*
 	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<UserInput>();
 
 	//For every entity which captures user input, record user input
@@ -118,8 +121,9 @@ void Example::GetUserInput()
 		//std::cout << uin.keyStates[UserInput::InputType::RIGHT] << ", " << EntityManager::GetComponent<UserInput>(entityIndex).keyStates[UserInput::InputType::RIGHT] << std::endl;
 
 		//EntityManager::SetComponent<UserInput>(entityIndex, uin);
-	}
 		
+	}
+	*/
 
 }
 void Example::HandleUserInput()
@@ -326,6 +330,7 @@ void Example::Run()
 			pos.x = initialBoxPosition.x + boxRect.width * i;
 			pos.y = initialBoxPosition.y;
 			EntityManager::SetComponent<Rect>(entity, boxRect);
+			EntityManager::SetComponent<Sprite>(entity, sprite);
 		}
 		int numVBoxes = 3;
 		for (int i = 0; i < numVBoxes; ++i)
@@ -337,6 +342,8 @@ void Example::Run()
 			pos.x = initialBoxPosition.x;
 			pos.y = initialBoxPosition.y - boxRect.height * i;
 			EntityManager::SetComponent<Rect>(entity, boxRect);
+			EntityManager::SetComponent<Sprite>(entity, sprite);
+
 		}
 
 		//EntityManager::DestroyEntity(ent1);
