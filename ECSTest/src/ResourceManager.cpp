@@ -1,9 +1,10 @@
 #include "ResourceManager.h"
 #include "Texture.h"
+#include "Renderer.h"
 
-ResourceManager::ResourceManager()
+ResourceManager::ResourceManager(Renderer* renderer)
 {
-	//LoadSprites();
+	LoadSprites(renderer);
 }
 
 
@@ -12,28 +13,16 @@ ResourceManager::~ResourceManager()
 	UnloadSprites();
 }
 
-ResourceManager& ResourceManager::GetInstance()
-{
-	//No need to check if the instance exists, C++ won't create another static instance
-	//Also thread safe by default, C++ automatically locks on instance creation
-	static ResourceManager instance;
-	return instance;
-}
-
-bool ResourceManager::Initialize() {
-	return LoadSprites();
-}
-
-bool ResourceManager::LoadSprites()
+bool ResourceManager::LoadSprites(Renderer* renderer)
 {
 
-	return LoadSprite("./Resources/Sprites/ship1.png", "Ship1");
+	return LoadSprite("./Resources/Sprites/ship1.png", "Ship1", renderer);
 }
 
-bool ResourceManager::LoadSprite(std::string path, std::string key) 
+bool ResourceManager::LoadSprite(std::string path, std::string key, Renderer* renderer)
 {
 	Texture* texture = new Texture();
-	bool success = texture->LoadTexture(path);
+	bool success = texture->LoadTexture(path, renderer);
 	if (success)
 	{
 		texturePointerMap->insert_or_assign(key, texture);

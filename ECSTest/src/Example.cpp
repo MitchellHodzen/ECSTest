@@ -73,59 +73,6 @@ void Example::ApplyVerticalPhysics()
 	}
 }
 
-void Example::GetUserInput()
-{
-	InputManager::GetInstance().GetUserInput();
-	/*
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<UserInput>();
-
-	//For every entity which captures user input, record user input
-	for (int entityIndex : entities)
-	{
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
-
-		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL); 
-		if (currentKeyStates[SDL_SCANCODE_UP]) 
-		{
-			uin.keyStates[UserInput::InputType::UP] = true;
-		}
-		else
-		{
-			uin.keyStates[UserInput::InputType::UP] = false;
-		}
-		if (currentKeyStates[SDL_SCANCODE_DOWN])
-		{ 
-			uin.keyStates[UserInput::InputType::DOWN] = true;
-		}
-		else
-		{
-			uin.keyStates[UserInput::InputType::DOWN] = false;
-		}
-		if (currentKeyStates[SDL_SCANCODE_LEFT]) 
-		{ 
-			uin.keyStates[UserInput::InputType::LEFT] = true;
-		}
-		else
-		{
-			uin.keyStates[UserInput::InputType::LEFT] = false;
-		}
-		if (currentKeyStates[SDL_SCANCODE_RIGHT]) 
-		{ 
-			uin.keyStates[UserInput::InputType::RIGHT] = true;
-		}
-		else
-		{
-			uin.keyStates[UserInput::InputType::RIGHT] = false;
-		}
-
-		//std::cout << uin.keyStates[UserInput::InputType::RIGHT] << ", " << EntityManager::GetComponent<UserInput>(entityIndex).keyStates[UserInput::InputType::RIGHT] << std::endl;
-
-		//EntityManager::SetComponent<UserInput>(entityIndex, uin);
-		
-	}
-	*/
-
-}
 void Example::HandleUserInput()
 {
 	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Velocity, UserInput>();
@@ -281,131 +228,135 @@ Example::~Example()
 {
 }
 
-void Example::Run()
-{
-	//Run tests
-	if (Renderer::GetInstance().Initialize(screenWidth, screenHeight) && ResourceManager::GetInstance().Initialize())
+void Example::Run(){
+
+	SetUp();
+
+	EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput, Sprite>();
+	EntityManager::SetUpTags<Player, Enemy, Wall>();
+
+	int ent0 = EntityManager::CreateEntity();
+	EntityManager::AddTag<Player>(ent0);
+	EntityManager::AddComponent<Position>(ent0);
+	EntityManager::AddComponent<Rect>(ent0);
+	EntityManager::AddComponent<Velocity>(ent0);
+	EntityManager::AddComponent<Friction>(ent0);
+	EntityManager::AddComponent<UserInput>(ent0);
+	//EntityManager::AddComponent<Sprite>(ent0);
+	Rect rect;
+	rect.width = 50;
+	rect.height = 50;
+	rect.offsetX = -rect.width / 2;
+	rect.offsetY = -rect.height / 2;
+	EntityManager::SetComponent<Rect>(ent0, rect);
+
+	Friction frict;
+	frict.amountX = 100.0f;
+	frict.amountY = 100.0f;
+	EntityManager::SetComponent<Friction>(ent0, frict);
+
+	Sprite sprite;
+	sprite.texture = resourceManager->GetTexture("Ship1");
+	EntityManager::SetComponent<Sprite>(ent0, sprite);
+
+	Rect boxRect;
+	boxRect.width = 100;
+	boxRect.height = 100;
+	Position initialBoxPosition;
+	initialBoxPosition.x = 100;
+	initialBoxPosition.y = 400;
+
+	int numHBoxes = 5;
+	for (int i = 0; i < numHBoxes; ++i)
 	{
-		EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput, Sprite>();
-		EntityManager::SetUpTags<Player, Enemy, Wall>();
-
-		int ent0 = EntityManager::CreateEntity();
-		EntityManager::AddTag<Player>(ent0);
-		EntityManager::AddComponent<Position>(ent0);
-		EntityManager::AddComponent<Rect>(ent0);
-		EntityManager::AddComponent<Velocity>(ent0);
-		EntityManager::AddComponent<Friction>(ent0);
-		EntityManager::AddComponent<UserInput>(ent0);
-		//EntityManager::AddComponent<Sprite>(ent0);
-		Rect rect;
-		rect.width = 50;
-		rect.height = 50;
-		rect.offsetX = -rect.width / 2;
-		rect.offsetY = -rect.height / 2;
-		EntityManager::SetComponent<Rect>(ent0, rect);
-
-		Friction frict;
-		frict.amountX = 100.0f;
-		frict.amountY = 100.0f;
-		EntityManager::SetComponent<Friction>(ent0, frict);
-
-		Sprite sprite;
-		sprite.texture = ResourceManager::GetInstance().GetTexture("Ship1");
-		EntityManager::SetComponent<Sprite>(ent0, sprite);
-
-		Rect boxRect;
-		boxRect.width = 100;
-		boxRect.height = 100;
-		Position initialBoxPosition;
-		initialBoxPosition.x = 100;
-		initialBoxPosition.y = 400;
-
-		int numHBoxes = 5;
-		for (int i = 0; i < numHBoxes; ++i)
-		{
-			int entity = EntityManager::CreateEntity();
-			EntityManager::AddComponent<Position>(entity);
-			EntityManager::AddComponent<Rect>(entity);
-			Position& pos = EntityManager::GetComponent<Position>(entity);
-			pos.x = initialBoxPosition.x + boxRect.width * i;
-			pos.y = initialBoxPosition.y;
-			EntityManager::SetComponent<Rect>(entity, boxRect);
-			EntityManager::SetComponent<Sprite>(entity, sprite);
-		}
-		int numVBoxes = 3;
-		for (int i = 0; i < numVBoxes; ++i)
-		{
-			int entity = EntityManager::CreateEntity();
-			EntityManager::AddComponent<Position>(entity);
-			EntityManager::AddComponent<Rect>(entity);
-			Position& pos = EntityManager::GetComponent<Position>(entity);
-			pos.x = initialBoxPosition.x;
-			pos.y = initialBoxPosition.y - boxRect.height * i;
-			EntityManager::SetComponent<Rect>(entity, boxRect);
-			EntityManager::SetComponent<Sprite>(entity, sprite);
-
-		}
-
-		//EntityManager::DestroyEntity(ent1);
-		//ent1 = EntityManager::CreateEntity();
-		//std::cout << "Entity " << ent1 << " is an enemy and wall: " << EntityManager::HasTag<Enemy, Wall>(ent1) << std::endl;
-
-		SDL_Event e;
-
-
-
-		float deltaTime = 0.0f;
-		Uint32 lastFrameTime = 0;
-		Uint32 currentFrameTime = SDL_GetTicks();
-
-
-		while (!quit)
-		{
-			lastFrameTime = currentFrameTime;
-			currentFrameTime = SDL_GetTicks();
-			Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
-
-			//MessageManager::ClearMessages<CollisionMessage>();
-
-			while (SDL_PollEvent(&e) != 0)
-			{
-				if (e.type == SDL_QUIT)
-				{
-					quit = true;
-				}
-				/*
-				else if (e.type == SDL_KEYDOWN)
-				{
-					//Select surfaces based on key press
-					switch (e.key.keysym.sym)
-					{
-					case SDLK_UP:
-						uin.inputStack.push(UserInput::InputType::UP);
-						break;
-					case SDLK_DOWN:
-						uin.inputStack.push(UserInput::InputType::DOWN);
-						break;
-					case SDLK_LEFT:
-						uin.inputStack.push(UserInput::InputType::LEFT);
-						break;
-					case SDLK_RIGHT:
-						uin.inputStack.push(UserInput::InputType::RIGHT);
-						break;
-					default:
-						break;
-					}
-				}
-				*/
-			}
-			GetUserInput();
-			HandleUserInput();
-			ApplyHorizontalPhysics();
-			CheckCollisions();
-			HandleHorizontalCollisions();
-			ApplyVerticalPhysics();
-			CheckCollisions();
-			HandleVerticalCollisions();
-			Renderer::GetInstance().Draw();
-		}
+		int entity = EntityManager::CreateEntity();
+		EntityManager::AddComponent<Position>(entity);
+		EntityManager::AddComponent<Rect>(entity);
+		Position& pos = EntityManager::GetComponent<Position>(entity);
+		pos.x = initialBoxPosition.x + boxRect.width * i;
+		pos.y = initialBoxPosition.y;
+		EntityManager::SetComponent<Rect>(entity, boxRect);
+		EntityManager::SetComponent<Sprite>(entity, sprite);
 	}
+	int numVBoxes = 3;
+	for (int i = 0; i < numVBoxes; ++i)
+	{
+		int entity = EntityManager::CreateEntity();
+		EntityManager::AddComponent<Position>(entity);
+		EntityManager::AddComponent<Rect>(entity);
+		Position& pos = EntityManager::GetComponent<Position>(entity);
+		pos.x = initialBoxPosition.x;
+		pos.y = initialBoxPosition.y - boxRect.height * i;
+		EntityManager::SetComponent<Rect>(entity, boxRect);
+		EntityManager::SetComponent<Sprite>(entity, sprite);
+
+	}
+
+	//EntityManager::DestroyEntity(ent1);
+	//ent1 = EntityManager::CreateEntity();
+	//std::cout << "Entity " << ent1 << " is an enemy and wall: " << EntityManager::HasTag<Enemy, Wall>(ent1) << std::endl;
+
+	SDL_Event e;
+
+
+
+	float deltaTime = 0.0f;
+	Uint32 lastFrameTime = 0;
+	Uint32 currentFrameTime = SDL_GetTicks();
+
+
+	while (!quit)
+	{
+		lastFrameTime = currentFrameTime;
+		currentFrameTime = SDL_GetTicks();
+		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
+
+		//MessageManager::ClearMessages<CollisionMessage>();
+
+		while (SDL_PollEvent(&e) != 0)
+		{
+			if (e.type == SDL_QUIT)
+			{
+				quit = true;
+			}
+			/*
+			else if (e.type == SDL_KEYDOWN)
+			{
+				//Select surfaces based on key press
+				switch (e.key.keysym.sym)
+				{
+				case SDLK_UP:
+					uin.inputStack.push(UserInput::InputType::UP);
+					break;
+				case SDLK_DOWN:
+					uin.inputStack.push(UserInput::InputType::DOWN);
+					break;
+				case SDLK_LEFT:
+					uin.inputStack.push(UserInput::InputType::LEFT);
+					break;
+				case SDLK_RIGHT:
+					uin.inputStack.push(UserInput::InputType::RIGHT);
+					break;
+				default:
+					break;
+				}
+			}
+			*/
+		}
+		inputManager->GetUserInput();
+		HandleUserInput();
+		ApplyHorizontalPhysics();
+		CheckCollisions();
+		HandleHorizontalCollisions();
+		ApplyVerticalPhysics();
+		CheckCollisions();
+		HandleVerticalCollisions();
+		renderer->Draw();
+	}
+}
+
+void Example::SetUp() {
+	renderer = new Renderer(screenWidth, screenHeight);
+	resourceManager = new ResourceManager(renderer);
+	inputManager = new InputManager();
 }

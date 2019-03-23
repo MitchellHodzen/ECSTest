@@ -2,6 +2,11 @@
 #include <SDL.h>
 struct Rect;
 struct Position;
+
+class InputManager;
+class ResourceManager;
+class Renderer;
+
 class Example
 {
 public:
@@ -9,11 +14,12 @@ public:
 	void Run();
 	~Example();
 private:
+	void SetUp();
+
 	int screenWidth;
 	int screenHeight;
 	void ApplyHorizontalPhysics();
 	void ApplyVerticalPhysics();
-	void GetUserInput();
 	void HandleUserInput();
 	void CheckCollisions();
 	void HandleHorizontalCollisions();
@@ -21,5 +27,9 @@ private:
 	bool RectsColliding(Rect rect1, Position pos1, Rect rect2, Position pos2);
 	static void Test();
 	bool quit = false;
+
+	InputManager* inputManager;
+	ResourceManager* resourceManager;
+	Renderer* renderer;
 };
 

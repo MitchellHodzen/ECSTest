@@ -13,7 +13,7 @@ Texture::~Texture()
 	FreeTexture();
 }
 
-bool Texture::LoadTexture(std::string path)
+bool Texture::LoadTexture(std::string path, Renderer* renderer)
 {
 	bool success = true;
 	FreeTexture();
@@ -26,7 +26,7 @@ bool Texture::LoadTexture(std::string path)
 	}
 	else
 	{
-		sdlTexture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSdlRenderer(), loadedSurface);
+		sdlTexture = SDL_CreateTextureFromSurface(renderer->GetSdlRenderer(), loadedSurface);
 		if (sdlTexture == NULL)
 		{
 			std::cout << "Unable to create texture. SDL error: " << SDL_GetError() << std::endl;

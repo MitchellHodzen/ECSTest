@@ -3,13 +3,10 @@
 class InputManager
 {
 public:
-	static InputManager& GetInstance();
+	InputManager();
 	~InputManager();
 	void GetUserInput();
 
 private:
-	static InputManager instance;
 	SDL_Event inputEvent;
-
-	InputManager();
 };

@@ -5,8 +5,9 @@
 #include "Components/c_sprite.h"
 #include "Texture.h"
 
-Renderer::Renderer()
+Renderer::Renderer(int screenWidth, int screenHeight)
 {
+	bool success = Initialize(screenWidth, screenHeight);
 }
 
 
@@ -19,15 +20,6 @@ Renderer::~Renderer()
 	IMG_Quit();
 	SDL_Quit();
 }
-
-Renderer& Renderer::GetInstance()
-{
-	//No need to check if the instance exists, C++ won't create another static instance
-	//Also thread safe by default, C++ automatically locks on instance creation
-	static Renderer instance;
-	return instance;
-}
-
 
 void Renderer::Render()//, Camera* camera)
 {

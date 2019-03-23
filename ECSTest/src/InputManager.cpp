@@ -11,14 +11,6 @@ InputManager::~InputManager()
 {
 }
 
-InputManager& InputManager::GetInstance()
-{
-	//No need to check if the instance exists, C++ won't create another static instance
-	//Also thread safe by default, C++ automatically locks on instance creation
-	static InputManager instance;
-	return instance;
-}
-
 void InputManager::GetUserInput()
 {
 

@@ -6,7 +6,7 @@
 class Renderer
 {
 public:
-	static Renderer& GetInstance();
+	Renderer(int screenWidth, int screenHeight);
 	~Renderer();
 	void Render();
 	void Draw();
@@ -16,12 +16,9 @@ public:
 	SDL_Renderer* GetSdlRenderer();
 
 private:
-	static Renderer instance;
 	SDL_Renderer* sdlRenderer = nullptr;
 	SDL_Window* sdlWindow = nullptr;
 	int screenWidth;
 	int screenHeight;
-
-	Renderer();
 };
 
