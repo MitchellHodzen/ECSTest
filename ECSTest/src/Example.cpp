@@ -221,6 +221,7 @@ Example::Example(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
+	SetUp();
 }
 
 
@@ -229,8 +230,6 @@ Example::~Example()
 }
 
 void Example::Run(){
-
-	SetUp();
 
 	EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput, Sprite>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
