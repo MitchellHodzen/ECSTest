@@ -45,16 +45,6 @@ void Example::HandleUserInput()
 	}
 }
 
-
-void Example::Test()
-{
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity>();
-	for (int entityIndex : entities)
-	{
-		std::cout << "Test funtion " << entityIndex << std::endl;
-	}
-}
-
 Example::Example(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
@@ -129,18 +119,9 @@ void Example::Run(){
 
 	}
 
-	//EntityManager::DestroyEntity(ent1);
-	//ent1 = EntityManager::CreateEntity();
-	//std::cout << "Entity " << ent1 << " is an enemy and wall: " << EntityManager::HasTag<Enemy, Wall>(ent1) << std::endl;
-
-	SDL_Event e;
-
-
-
 	float deltaTime = 0.0f;
 	Uint32 lastFrameTime = 0;
 	Uint32 currentFrameTime = SDL_GetTicks();
-
 
 	while (!quit)
 	{
@@ -148,38 +129,6 @@ void Example::Run(){
 		currentFrameTime = SDL_GetTicks();
 		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
 
-		//MessageManager::ClearMessages<CollisionMessage>();
-
-		while (SDL_PollEvent(&e) != 0)
-		{
-			if (e.type == SDL_QUIT)
-			{
-				quit = true;
-			}
-			/*
-			else if (e.type == SDL_KEYDOWN)
-			{
-				//Select surfaces based on key press
-				switch (e.key.keysym.sym)
-				{
-				case SDLK_UP:
-					uin.inputStack.push(UserInput::InputType::UP);
-					break;
-				case SDLK_DOWN:
-					uin.inputStack.push(UserInput::InputType::DOWN);
-					break;
-				case SDLK_LEFT:
-					uin.inputStack.push(UserInput::InputType::LEFT);
-					break;
-				case SDLK_RIGHT:
-					uin.inputStack.push(UserInput::InputType::RIGHT);
-					break;
-				default:
-					break;
-				}
-			}
-			*/
-		}
 		inputManager->GetUserInput();
 		HandleUserInput();
 		physicsSystem->ApplyHorizontalPhysics();

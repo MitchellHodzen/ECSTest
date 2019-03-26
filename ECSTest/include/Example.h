@@ -21,7 +21,6 @@ private:
 	int screenWidth;
 	int screenHeight;
 	void HandleUserInput();
-	static void Test();
 	bool quit = false;
 
 	InputManager* inputManager;
