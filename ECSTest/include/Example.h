@@ -22,8 +22,6 @@ private:
 	void ApplyHorizontalPhysics();
 	void ApplyVerticalPhysics();
 	void HandleUserInput();
-	void HandleHorizontalCollisions();
-	void HandleVerticalCollisions();
 	static void Test();
 	bool quit = false;
 
