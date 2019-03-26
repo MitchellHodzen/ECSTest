@@ -7,6 +7,7 @@ class InputManager;
 class ResourceManager;
 class Renderer;
 class CollisionSystem;
+class PhysicsSystem;
 
 class Example
 {
@@ -19,8 +20,6 @@ private:
 
 	int screenWidth;
 	int screenHeight;
-	void ApplyHorizontalPhysics();
-	void ApplyVerticalPhysics();
 	void HandleUserInput();
 	static void Test();
 	bool quit = false;
@@ -29,5 +28,6 @@ private:
 	ResourceManager* resourceManager;
 	Renderer* renderer;
 	CollisionSystem* collisionSystem;
+	PhysicsSystem* physicsSystem;
 };
 

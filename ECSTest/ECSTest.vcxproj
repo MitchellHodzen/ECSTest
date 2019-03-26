@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\PhysicsSystem.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Renderer.h" />
     <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\PhysicsSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

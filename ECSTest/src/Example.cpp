@@ -15,64 +15,7 @@
 #include "Components/c_sprite.h"
 #include "InputManager.h"
 #include "CollisionSystem.h"
-
-void Example::ApplyHorizontalPhysics()
-{
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Friction>();
-	for (int entityIndex : entities)
-	{
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
-		Friction& frict = EntityManager::GetComponent<Friction>(entityIndex);
-		if (vel.dx > 0)
-		{
-			vel.dx -= frict.amountX * Time::GetDeltaTime();
-			if (vel.dx < 0)
-			{
-				vel.dx = 0;
-			}
-		}
-		else if (vel.dx < 0)
-		{
-			vel.dx += frict.amountX * Time::GetDeltaTime();
-			if (vel.dx > 0)
-			{
-				vel.dx = 0;
-			}
-		}
-
-		pos.x += vel.dx * Time::GetDeltaTime();
-	}
-}
-
-void Example::ApplyVerticalPhysics()
-{
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Friction>();
-	for (int entityIndex : entities)
-	{
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
-		Friction& frict = EntityManager::GetComponent<Friction>(entityIndex);
-
-		if (vel.dy > 0)
-		{
-			vel.dy -= frict.amountY * Time::GetDeltaTime();
-			if (vel.dy < 0)
-			{
-				vel.dy = 0;
-			}
-		}
-		else if (vel.dy < 0)
-		{
-			vel.dy += frict.amountY * Time::GetDeltaTime();
-			if (vel.dy > 0)
-			{
-				vel.dy = 0;
-			}
-		}
-		pos.y += vel.dy * Time::GetDeltaTime();
-	}
-}
+#include "PhysicsSystem.h"
 
 void Example::HandleUserInput()
 {
@@ -99,13 +42,7 @@ void Example::HandleUserInput()
 		{
 			vel.dx += speed * Time::GetDeltaTime();
 		}
-
-		//EntityManager::SetComponent<Velocity>(entityIndex, vel);
-		//EntityManager::SetComponent<UserInput>(entityIndex, uin);
-
-
 	}
-	
 }
 
 
@@ -245,12 +182,12 @@ void Example::Run(){
 		}
 		inputManager->GetUserInput();
 		HandleUserInput();
-		ApplyHorizontalPhysics();
+		physicsSystem->ApplyHorizontalPhysics();
 		collisionSystem->CheckCollisions();
-		collisionSystem->HandleHorizontalCollisions();
-		ApplyVerticalPhysics();
+		physicsSystem->HandleHorizontalCollisions();
+		physicsSystem->ApplyVerticalPhysics();
 		collisionSystem->CheckCollisions();
-		collisionSystem->HandleVerticalCollisions();
+		physicsSystem->HandleVerticalCollisions();
 		renderer->Draw();
 	}
 }
@@ -260,4 +197,5 @@ void Example::SetUp() {
 	resourceManager = new ResourceManager(renderer);
 	inputManager = new InputManager();
 	collisionSystem = new CollisionSystem();
+	physicsSystem = new PhysicsSystem();
 }
