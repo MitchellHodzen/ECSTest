@@ -6,6 +6,7 @@ struct Position;
 class InputManager;
 class ResourceManager;
 class Renderer;
+class CollisionSystem;
 
 class Example
 {
@@ -21,15 +22,14 @@ private:
 	void ApplyHorizontalPhysics();
 	void ApplyVerticalPhysics();
 	void HandleUserInput();
-	void CheckCollisions();
 	void HandleHorizontalCollisions();
 	void HandleVerticalCollisions();
-	bool RectsColliding(Rect rect1, Position pos1, Rect rect2, Position pos2);
 	static void Test();
 	bool quit = false;
 
 	InputManager* inputManager;
 	ResourceManager* resourceManager;
 	Renderer* renderer;
+	CollisionSystem* collisionSystem;
 };
 
