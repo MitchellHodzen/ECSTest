@@ -13,7 +13,7 @@
 #include "RenderSystem.h"
 #include "ResourceManager.h"
 #include "Components/c_sprite.h"
-#include "InputManager.h"
+#include "InputSystem.h"
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 
@@ -100,7 +100,7 @@ void Example::Run(){
 		currentFrameTime = SDL_GetTicks();
 		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
 
-		inputManager->GetUserInput();
+		inputSystem->GetUserInput();
 		physicsSystem->HandleUserInput();
 		physicsSystem->ApplyHorizontalPhysics();
 		collisionSystem->CheckCollisions();
@@ -115,7 +115,7 @@ void Example::Run(){
 void Example::SetUp() {
 	renderSystem = new RenderSystem(screenWidth, screenHeight);
 	resourceManager = new ResourceManager(renderSystem);
-	inputManager = new InputManager();
+	inputSystem = new InputSystem();
 	collisionSystem = new CollisionSystem();
 	physicsSystem = new PhysicsSystem();
 }

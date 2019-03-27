@@ -1,17 +1,17 @@
-#include "InputManager.h"
+#include "InputSystem.h"
 #include "kecs/KECS.h"
 #include "Components/c_input.h"
 
-InputManager::InputManager()
+InputSystem::InputSystem()
 {
 }
 
 
-InputManager::~InputManager()
+InputSystem::~InputSystem()
 {
 }
 
-void InputManager::GetUserInput()
+void InputSystem::GetUserInput()
 {
 
 	while (SDL_PollEvent(&inputEvent) != 0)

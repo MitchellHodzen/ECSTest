@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-class InputManager;
+class InputSystem;
 class ResourceManager;
 class RenderSystem;
 class CollisionSystem;
@@ -20,7 +20,7 @@ private:
 	int screenHeight;
 	bool quit = false;
 
-	InputManager* inputManager;
+	InputSystem* inputSystem;
 	ResourceManager* resourceManager;
 	RenderSystem* renderSystem;
 	CollisionSystem* collisionSystem;

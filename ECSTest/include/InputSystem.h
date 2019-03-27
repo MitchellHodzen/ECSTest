@@ -1,10 +1,10 @@
 #pragma once
 #include <SDL.h>
-class InputManager
+class InputSystem
 {
 public:
-	InputManager();
-	~InputManager();
+	InputSystem();
+	~InputSystem();
 	void GetUserInput();
 
 private:

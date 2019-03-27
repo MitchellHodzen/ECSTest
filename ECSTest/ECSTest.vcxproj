@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClCompile Include="src\PhysicsSystem.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
-    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\InputSystem.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Example.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\RenderSystem.h" />
-    <ClInclude Include="include\InputManager.h" />
+    <ClInclude Include="include\InputSystem.h" />
     <ClInclude Include="include\PhysicsSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
