@@ -6,7 +6,7 @@
 #include "Components/c_rect.h"
 #include "Tags.h"
 #include "Components/c_input.h"
-#include "Components/c_friction.h"
+#include "Components/c_physics.h"
 #include "Time.h"
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
@@ -17,33 +17,6 @@
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 
-void Example::HandleUserInput()
-{
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Velocity, UserInput>();
-	
-	for (int entityIndex : entities)
-	{
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
-		float speed = 300.0f;
-		if (uin.keyStates[UserInput::InputType::UP])
-		{
-			vel.dy -= speed * Time::GetDeltaTime();
-		}
-		if (uin.keyStates[UserInput::InputType::DOWN])
-		{
-			vel.dy += speed * Time::GetDeltaTime();
-		}
-		if (uin.keyStates[UserInput::InputType::LEFT])
-		{
-			vel.dx -= speed * Time::GetDeltaTime();
-		}
-		if (uin.keyStates[UserInput::InputType::RIGHT])
-		{
-			vel.dx += speed * Time::GetDeltaTime();
-		}
-	}
-}
 
 Example::Example(int screenWidth, int screenHeight)
 {
@@ -59,7 +32,7 @@ Example::~Example()
 
 void Example::Run(){
 
-	EntityManager::SetUpComponents<Position, Velocity, Rect, Friction, UserInput, Sprite>();
+	EntityManager::SetUpComponents<Position, Velocity, Rect, UserInput, Sprite, Physics>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 	int ent0 = EntityManager::CreateEntity();
@@ -67,7 +40,6 @@ void Example::Run(){
 	EntityManager::AddComponent<Position>(ent0);
 	EntityManager::AddComponent<Rect>(ent0);
 	EntityManager::AddComponent<Velocity>(ent0);
-	EntityManager::AddComponent<Friction>(ent0);
 	EntityManager::AddComponent<UserInput>(ent0);
 	//EntityManager::AddComponent<Sprite>(ent0);
 	Rect rect;
@@ -77,14 +49,13 @@ void Example::Run(){
 	rect.offsetY = -rect.height / 2;
 	EntityManager::SetComponent<Rect>(ent0, rect);
 
-	Friction frict;
-	frict.amountX = 100.0f;
-	frict.amountY = 100.0f;
-	EntityManager::SetComponent<Friction>(ent0, frict);
-
 	Sprite sprite;
 	sprite.texture = resourceManager->GetTexture("Ship1");
 	EntityManager::SetComponent<Sprite>(ent0, sprite);
+
+	Physics physics;
+	physics.maxSpeed = 200;
+	EntityManager::SetComponent<Physics>(ent0, physics);
 
 	Rect boxRect;
 	boxRect.width = 100;
@@ -130,7 +101,7 @@ void Example::Run(){
 		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
 
 		inputManager->GetUserInput();
-		HandleUserInput();
+		physicsSystem->HandleUserInput();
 		physicsSystem->ApplyHorizontalPhysics();
 		collisionSystem->CheckCollisions();
 		physicsSystem->HandleHorizontalCollisions();

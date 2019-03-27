@@ -145,7 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CollisionSystem.h" />
-    <ClInclude Include="include\Components\c_friction.h" />
     <ClInclude Include="include\Components\c_input.h" />
     <ClInclude Include="include\Components\c_physics.h" />
     <ClInclude Include="include\Components\c_rect.h" />

@@ -1,7 +1,5 @@
 #pragma once
 #include <SDL.h>
-struct Rect;
-struct Position;
 
 class InputManager;
 class ResourceManager;
@@ -20,7 +18,6 @@ private:
 
 	int screenWidth;
 	int screenHeight;
-	void HandleUserInput();
 	bool quit = false;
 
 	InputManager* inputManager;

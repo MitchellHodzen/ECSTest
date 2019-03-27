@@ -3,9 +3,7 @@ struct Physics
 {
 	Physics()
 	{
-		dx = 0;
-		dy = 0;
+		maxSpeed = 0;
 	};
-	float dx;
-	float dy;
+	float maxSpeed;
 };

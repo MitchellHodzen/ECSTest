@@ -2,8 +2,9 @@
 #include "kecs/KECS.h"
 #include "Components/c_position.h"
 #include "Components/c_velocity.h"
-#include "Components/c_friction.h"
+#include "Components/c_physics.h"
 #include "Components/c_rect.h"
+#include "Components/c_input.h"
 #include "Time.h"
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
@@ -17,6 +18,41 @@ PhysicsSystem::PhysicsSystem()
 
 PhysicsSystem::~PhysicsSystem()
 {
+}
+
+void PhysicsSystem::HandleUserInput()
+{
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Velocity, UserInput>();
+
+	for (int entityIndex : entities)
+	{
+		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
+		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
+		if (uin.keyStates[UserInput::InputType::UP])
+		{
+			vel.dy = -1;
+		}
+		else if (uin.keyStates[UserInput::InputType::DOWN])
+		{
+			vel.dy = 1;
+		}
+		else
+		{
+			vel.dy = 0;
+		}
+		if (uin.keyStates[UserInput::InputType::LEFT])
+		{
+			vel.dx = -1;
+		}
+		else if (uin.keyStates[UserInput::InputType::RIGHT])
+		{
+			vel.dx = 1;
+		}
+		else
+		{
+			vel.dx = 0;
+		}
+	}
 }
 
 void PhysicsSystem::HandleHorizontalCollisions()
@@ -76,28 +112,14 @@ void PhysicsSystem::HandleVerticalCollisions()
 
 void PhysicsSystem::ApplyHorizontalPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Friction>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Physics>();
 	for (int entityIndex : entities)
 	{
 		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
 		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
-		Friction& frict = EntityManager::GetComponent<Friction>(entityIndex);
-		if (vel.dx > 0)
-		{
-			vel.dx -= frict.amountX * Time::GetDeltaTime();
-			if (vel.dx < 0)
-			{
-				vel.dx = 0;
-			}
-		}
-		else if (vel.dx < 0)
-		{
-			vel.dx += frict.amountX * Time::GetDeltaTime();
-			if (vel.dx > 0)
-			{
-				vel.dx = 0;
-			}
-		}
+		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
+
+		vel.dx *= phys.maxSpeed;
 
 		pos.x += vel.dx * Time::GetDeltaTime();
 	}
@@ -105,29 +127,15 @@ void PhysicsSystem::ApplyHorizontalPhysics()
 
 void PhysicsSystem::ApplyVerticalPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Friction>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, UserInput>();
 	for (int entityIndex : entities)
 	{
 		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
 		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
-		Friction& frict = EntityManager::GetComponent<Friction>(entityIndex);
+		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
-		if (vel.dy > 0)
-		{
-			vel.dy -= frict.amountY * Time::GetDeltaTime();
-			if (vel.dy < 0)
-			{
-				vel.dy = 0;
-			}
-		}
-		else if (vel.dy < 0)
-		{
-			vel.dy += frict.amountY * Time::GetDeltaTime();
-			if (vel.dy > 0)
-			{
-				vel.dy = 0;
-			}
-		}
+		vel.dy *= phys.maxSpeed;
+
 		pos.y += vel.dy * Time::GetDeltaTime();
 	}
 }
