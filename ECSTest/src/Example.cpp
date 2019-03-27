@@ -10,7 +10,7 @@
 #include "Time.h"
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
-#include "Renderer.h"
+#include "RenderSystem.h"
 #include "ResourceManager.h"
 #include "Components/c_sprite.h"
 #include "InputManager.h"
@@ -108,13 +108,13 @@ void Example::Run(){
 		physicsSystem->ApplyVerticalPhysics();
 		collisionSystem->CheckCollisions();
 		physicsSystem->HandleVerticalCollisions();
-		renderer->Draw();
+		renderSystem->Draw();
 	}
 }
 
 void Example::SetUp() {
-	renderer = new Renderer(screenWidth, screenHeight);
-	resourceManager = new ResourceManager(renderer);
+	renderSystem = new RenderSystem(screenWidth, screenHeight);
+	resourceManager = new ResourceManager(renderSystem);
 	inputManager = new InputManager();
 	collisionSystem = new CollisionSystem();
 	physicsSystem = new PhysicsSystem();

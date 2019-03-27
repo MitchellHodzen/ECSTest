@@ -3,11 +3,11 @@
 #include <SDL_image.h>
 #include <iostream>
 
-class Renderer
+class RenderSystem
 {
 public:
-	Renderer(int screenWidth, int screenHeight);
-	~Renderer();
+	RenderSystem(int screenWidth, int screenHeight);
+	~RenderSystem();
 	void Render();
 	void Draw();
 	bool Initialize(int screenWidth, int screenHeight);

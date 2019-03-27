@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "Renderer.h"
+#include "RenderSystem.h"
 
 Texture::Texture()
 {
@@ -13,7 +13,7 @@ Texture::~Texture()
 	FreeTexture();
 }
 
-bool Texture::LoadTexture(std::string path, Renderer* renderer)
+bool Texture::LoadTexture(std::string path, RenderSystem* renderSystem)
 {
 	bool success = true;
 	FreeTexture();
@@ -26,7 +26,7 @@ bool Texture::LoadTexture(std::string path, Renderer* renderer)
 	}
 	else
 	{
-		sdlTexture = SDL_CreateTextureFromSurface(renderer->GetSdlRenderer(), loadedSurface);
+		sdlTexture = SDL_CreateTextureFromSurface(renderSystem->GetSdlRenderer(), loadedSurface);
 		if (sdlTexture == NULL)
 		{
 			std::cout << "Unable to create texture. SDL error: " << SDL_GetError() << std::endl;

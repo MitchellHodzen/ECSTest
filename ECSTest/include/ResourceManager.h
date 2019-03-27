@@ -4,20 +4,20 @@
 
 //Forward declarations
 class Texture;
-class Renderer;
+class RenderSystem;
 
 class ResourceManager
 {
 public:
-	ResourceManager(Renderer* renderer);
+	ResourceManager(RenderSystem* renderSystem);
 	~ResourceManager();
 	Texture* GetTexture(std::string key);
 
 private:
 	std::unordered_map<std::string, Texture*>* texturePointerMap = new std::unordered_map<std::string, Texture*>();;
 
-	bool LoadSprites(Renderer* renderer);
+	bool LoadSprites(RenderSystem* renderSystem);
 	void UnloadSprites();
-	bool LoadSprite(std::string path, std::string key, Renderer* renderer);
+	bool LoadSprite(std::string path, std::string key, RenderSystem* renderSystem);
 };
 

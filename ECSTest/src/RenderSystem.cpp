@@ -1,17 +1,17 @@
-#include "Renderer.h"
+#include "RenderSystem.h"
 #include "kecs/KECS.h"
 #include "Components/c_position.h"
 #include "Components/c_rect.h"
 #include "Components/c_sprite.h"
 #include "Texture.h"
 
-Renderer::Renderer(int screenWidth, int screenHeight)
+RenderSystem::RenderSystem(int screenWidth, int screenHeight)
 {
 	bool success = Initialize(screenWidth, screenHeight);
 }
 
 
-Renderer::~Renderer()
+RenderSystem::~RenderSystem()
 {
 	SDL_DestroyRenderer(sdlRenderer);
 	SDL_DestroyWindow(sdlWindow);
@@ -21,7 +21,7 @@ Renderer::~Renderer()
 	SDL_Quit();
 }
 
-void Renderer::Render()//, Camera* camera)
+void RenderSystem::Render()//, Camera* camera)
 {
 	/*
 	entity->GetVisualComponent()->Render(round(entity->GetPosX()), round(entity->GetPosY()), sdlRenderer);
@@ -35,7 +35,7 @@ void Renderer::Render()//, Camera* camera)
 }
 
 
-void Renderer::Draw()//std::vector<Entity*>* entityList, std::vector<TextElement*>* textList)//, Camera* camera)
+void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextElement*>* textList)//, Camera* camera)
 {
 	SDL_SetRenderDrawColor(sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -76,7 +76,7 @@ void Renderer::Draw()//std::vector<Entity*>* entityList, std::vector<TextElement
 	*/
 }
 
-bool Renderer::Initialize(int screenWidth, int screenHeight)
+bool RenderSystem::Initialize(int screenWidth, int screenHeight)
 {
 	std::cout << "Initializing Renderer..." << std::endl;
 	this->screenWidth = screenWidth;
@@ -120,16 +120,16 @@ bool Renderer::Initialize(int screenWidth, int screenHeight)
 	return success;
 }
 
-int Renderer::GetScreenWidth()
+int RenderSystem::GetScreenWidth()
 {
 	return screenWidth;
 }
-int Renderer::GetScreenHeight()
+int RenderSystem::GetScreenHeight()
 {
 	return screenHeight;
 }
 
-SDL_Renderer* Renderer::GetSdlRenderer()
+SDL_Renderer* RenderSystem::GetSdlRenderer()
 {
 	return sdlRenderer;
 }

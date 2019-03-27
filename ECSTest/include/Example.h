@@ -3,7 +3,7 @@
 
 class InputManager;
 class ResourceManager;
-class Renderer;
+class RenderSystem;
 class CollisionSystem;
 class PhysicsSystem;
 
@@ -22,7 +22,7 @@ private:
 
 	InputManager* inputManager;
 	ResourceManager* resourceManager;
-	Renderer* renderer;
+	RenderSystem* renderSystem;
 	CollisionSystem* collisionSystem;
 	PhysicsSystem* physicsSystem;
 };
