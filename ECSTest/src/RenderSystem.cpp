@@ -51,7 +51,7 @@ void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextEle
 		Sprite& sprite = EntityManager::GetComponent<Sprite>(entityIndex);
 		Texture* text = sprite.texture;
 		SDL_Rect sdlRect{ 0, 0, text->GetWidth(), text->GetHeight() };
-		text->Render(pos.x, pos.y, &sdlRect, sdlRenderer);
+		RenderTexture(text, pos.x, pos.y, sdlRect);
 		//SDL_Rect fillRect = { pos.x + rect.offsetX, pos.y + rect.offsetY, rect.width, rect.height };
 		//SDL_SetRenderDrawColor(sdlRenderer, 0xFF, 0x00, 0x00, 0xFF);
 		//SDL_RenderFillRect(sdlRenderer, &fillRect);
@@ -74,6 +74,21 @@ void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextEle
 	}
 	SDL_RenderPresent(sdlRenderer);
 	*/
+}
+
+void RenderSystem::RenderTexture(Texture* texture, int posX, int posY, SDL_Rect& cutRect, SDL_RendererFlip flip)
+{
+	//flip defaults to SDL_FLIP_NONE
+	
+	//If we want the position to be the middle, do this calculation
+	//SDL_Rect rect{ posX - cutRect->w / 2, posY - cutRect->h / 2, cutRect->w, cutRect->h };
+	
+	//If we want the position to be the top left do this calcuation
+	SDL_Rect rect{ posX, posY, cutRect.w, cutRect.h };
+
+	//Not a memory leak? Memory is just slowly allocated but has an upper bounds
+	SDL_RenderCopyEx(sdlRenderer, texture->GetTexture(), &cutRect, &rect, 0.0, NULL, flip);
+
 }
 
 bool RenderSystem::Initialize(int screenWidth, int screenHeight)

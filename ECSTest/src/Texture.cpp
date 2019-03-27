@@ -61,26 +61,7 @@ int Texture::GetHeight()
 {
 	return height;
 }
-void Texture::Render(int posX, int posY, SDL_Rect* cutRect, SDL_Renderer* renderer, SDL_RendererFlip flip)
+SDL_Texture* Texture::GetTexture()
 {
-	//flip defaults to SDL_FLIP_NONE
-	if (cutRect == NULL || cutRect == nullptr)
-	{
-		std::cout << "cutRect is null" << std::endl;
-	}
-	else if (renderer == NULL || renderer == nullptr)
-	{
-		std::cout << "renderer is null" << std::endl;
-	}
-	else
-	{
-		//If we want the position to be the middle, do this calculation
-		//SDL_Rect rect{ posX - cutRect->w / 2, posY - cutRect->h / 2, cutRect->w, cutRect->h };
-
-		//If we want the position to be the top left do this calcuation
-		SDL_Rect rect{ posX, posY, cutRect->w, cutRect->h };
-
-		//Not a memory leak? Memory is just slowly allocated but has an upper bounds
-		SDL_RenderCopyEx(renderer, sdlTexture, cutRect, &rect, 0.0, NULL, flip);
-	}
+	return sdlTexture;
 }

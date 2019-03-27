@@ -3,6 +3,8 @@
 #include <SDL_image.h>
 #include <iostream>
 
+class Texture;
+
 class RenderSystem
 {
 public:
@@ -16,6 +18,8 @@ public:
 	SDL_Renderer* GetSdlRenderer();
 
 private:
+	void RenderTexture(Texture* texture, int posX, int posY, SDL_Rect& cutRect, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
 	SDL_Renderer* sdlRenderer = nullptr;
 	SDL_Window* sdlWindow = nullptr;
 	int screenWidth;
