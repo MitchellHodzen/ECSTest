@@ -154,7 +154,6 @@
     <ClInclude Include="include\Example.h" />
     <ClInclude Include="include\Components\c_test.h" />
     <ClInclude Include="include\Components\c_position.h" />
-    <ClInclude Include="include\Components\c_velocity.h" />
     <ClInclude Include="include\kecs\KECS.h" />
     <ClInclude Include="include\MessageManager.h" />
     <ClInclude Include="include\Messages\m_collision.h" />
@@ -166,6 +165,7 @@
     <ClInclude Include="include\RenderSystem.h" />
     <ClInclude Include="include\InputSystem.h" />
     <ClInclude Include="include\PhysicsSystem.h" />
+    <ClInclude Include="include\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

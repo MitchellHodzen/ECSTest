@@ -44,9 +44,6 @@
     <ClInclude Include="include\Components\c_position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\c_velocity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Stack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -105,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\InputSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

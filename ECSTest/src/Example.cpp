@@ -2,7 +2,6 @@
 #include <iostream>
 #include "kecs/KECS.h"
 #include "Components/c_position.h"
-#include "Components/c_velocity.h"
 #include "Components/c_rect.h"
 #include "Tags.h"
 #include "Components/c_input.h"
@@ -32,14 +31,13 @@ Example::~Example()
 
 void Example::Run(){
 
-	EntityManager::SetUpComponents<Position, Velocity, Rect, UserInput, Sprite, Physics>();
+	EntityManager::SetUpComponents<Position, Rect, UserInput, Sprite, Physics>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 	int ent0 = EntityManager::CreateEntity();
 	EntityManager::AddTag<Player>(ent0);
 	EntityManager::AddComponent<Position>(ent0);
 	EntityManager::AddComponent<Rect>(ent0);
-	EntityManager::AddComponent<Velocity>(ent0);
 	EntityManager::AddComponent<UserInput>(ent0);
 	//EntityManager::AddComponent<Sprite>(ent0);
 	Rect rect;

@@ -1,7 +1,6 @@
 #include "PhysicsSystem.h"
 #include "kecs/KECS.h"
 #include "Components/c_position.h"
-#include "Components/c_velocity.h"
 #include "Components/c_physics.h"
 #include "Components/c_rect.h"
 #include "Components/c_input.h"
@@ -22,35 +21,35 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::HandleUserInput()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Velocity, UserInput>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Physics, UserInput>();
 
 	for (int entityIndex : entities)
 	{
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
+		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
 		if (uin.keyStates[UserInput::InputType::UP])
 		{
-			vel.dy = -1;
+			phys.velocity.SetY(-1);
 		}
 		else if (uin.keyStates[UserInput::InputType::DOWN])
 		{
-			vel.dy = 1;
+			phys.velocity.SetY(1);
 		}
 		else
 		{
-			vel.dy = 0;
+			phys.velocity.SetY(0);
 		}
 		if (uin.keyStates[UserInput::InputType::LEFT])
 		{
-			vel.dx = -1;
+			phys.velocity.SetX(-1);
 		}
 		else if (uin.keyStates[UserInput::InputType::RIGHT])
 		{
-			vel.dx = 1;
+			phys.velocity.SetX(1);
 		}
 		else
 		{
-			vel.dx = 0;
+			phys.velocity.SetX(0);
 		}
 	}
 }
@@ -112,30 +111,29 @@ void PhysicsSystem::HandleVerticalCollisions()
 
 void PhysicsSystem::ApplyHorizontalPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Physics>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Physics>();
 	for (int entityIndex : entities)
 	{
 		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
-		vel.dx *= phys.maxSpeed;
+		phys.velocity.SetX(phys.velocity.GetX() * phys.maxSpeed);
 
-		pos.x += vel.dx * Time::GetDeltaTime();
+		pos.x += phys.velocity.GetX() * Time::GetDeltaTime();
 	}
 }
 
 void PhysicsSystem::ApplyVerticalPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, UserInput>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, UserInput>();
 	for (int entityIndex : entities)
 	{
 		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		Velocity& vel = EntityManager::GetComponent<Velocity>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
-		vel.dy *= phys.maxSpeed;
 
-		pos.y += vel.dy * Time::GetDeltaTime();
+		phys.velocity.SetY(phys.velocity.GetY() * phys.maxSpeed);
+
+		pos.y += phys.velocity.GetY() * Time::GetDeltaTime();
 	}
 }

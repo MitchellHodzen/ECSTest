@@ -2,7 +2,7 @@
 #include "kecs/KECS.h"
 #include "Components/c_position.h"
 #include "Components/c_rect.h"
-#include "Components/c_velocity.h"
+#include "Components/c_physics.h"
 #include "MessageManager.h"
 #include "Messages/m_collision.h"
 
@@ -37,7 +37,7 @@ bool CollisionSystem::RectsColliding(Rect rect1, Position pos1, Rect rect2, Posi
 
 void CollisionSystem::CheckCollisions()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Velocity, Rect>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Physics, Rect>(); //Only entities with physics will collide
 	std::vector<int> collidableEntities = EntityManager::GetEntitiesWithComponent<Position, Rect>();
 	for (int entityIndex : entities)
 	{
