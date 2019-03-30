@@ -86,8 +86,7 @@ void PhysicsSystem::ApplyPhysics()
 		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
-		phys.velocity.SetX(phys.velocity.GetX() * phys.maxSpeed);
-		phys.velocity.SetY(phys.velocity.GetY() * phys.maxSpeed);
+		phys.velocity *= phys.maxSpeed;
 
 		trans.position += phys.velocity * Time::GetDeltaTime();
 	}
