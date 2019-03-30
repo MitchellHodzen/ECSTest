@@ -5,9 +5,7 @@ public:
 	PhysicsSystem();
 	~PhysicsSystem();
 	void HandleUserInput();
-	void ApplyHorizontalPhysics();
-	void ApplyVerticalPhysics();
-	void HandleHorizontalCollisions();
-	void HandleVerticalCollisions();
+	void ApplyPhysics();
+	void HandleCollisions();
 };
 

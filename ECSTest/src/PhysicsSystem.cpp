@@ -54,7 +54,7 @@ void PhysicsSystem::HandleUserInput()
 	}
 }
 
-void PhysicsSystem::HandleHorizontalCollisions()
+void PhysicsSystem::HandleCollisions()
 {
 	while (MessageManager::NotEmpty<CollisionMessage>())
 	{
@@ -69,6 +69,8 @@ void PhysicsSystem::HandleHorizontalCollisions()
 		rectPos1.x = pos1.x + rect1.offsetX;
 		rectPos2.x = pos2.x + rect2.offsetX;
 
+		//Do collision handling here
+		/*
 		//Handle horizontal collisions
 		if (rectPos1.x < rectPos2.x && rectPos1.x + rect1.width > rectPos2.x)
 		{
@@ -78,38 +80,12 @@ void PhysicsSystem::HandleHorizontalCollisions()
 		{
 			pos1.x = rectPos2.x + rect2.width - rect1.offsetX;
 		}
+		*/
 
 	}
 }
 
-void PhysicsSystem::HandleVerticalCollisions()
-{
-	while (MessageManager::NotEmpty<CollisionMessage>())
-	{
-		CollisionMessage message = MessageManager::PopMessage<CollisionMessage>();
-		Rect& rect1 = EntityManager::GetComponent<Rect>(message.entityOneIndex);
-		Position& pos1 = EntityManager::GetComponent<Position>(message.entityOneIndex);
-		Rect& rect2 = EntityManager::GetComponent<Rect>(message.entityTwoIndex);
-		Position& pos2 = EntityManager::GetComponent<Position>(message.entityTwoIndex);
-
-		Position rectPos1;
-		Position rectPos2;
-		rectPos1.y = pos1.y + rect1.offsetY;
-		rectPos2.y = pos2.y + rect2.offsetY;
-
-		//Handle vertical collisions
-		if (rectPos1.y < rectPos2.y && rectPos1.y + rect1.height > rectPos2.y)
-		{
-			pos1.y = rectPos2.y - rect1.height - rect1.offsetY;
-		}
-		else if (rectPos1.y  < rectPos2.y + rect2.height && rectPos1.y + rect1.height > rectPos2.y + rect2.height)
-		{
-			pos1.y = rectPos2.y + rect2.height - rect1.offsetY;
-		}
-	}
-}
-
-void PhysicsSystem::ApplyHorizontalPhysics()
+void PhysicsSystem::ApplyPhysics()
 {
 	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Physics>();
 	for (int entityIndex : entities)
@@ -120,17 +96,6 @@ void PhysicsSystem::ApplyHorizontalPhysics()
 		phys.velocity.SetX(phys.velocity.GetX() * phys.maxSpeed);
 
 		pos.x += phys.velocity.GetX() * Time::GetDeltaTime();
-	}
-}
-
-void PhysicsSystem::ApplyVerticalPhysics()
-{
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, UserInput>();
-	for (int entityIndex : entities)
-	{
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
-		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
-
 
 		phys.velocity.SetY(phys.velocity.GetY() * phys.maxSpeed);
 

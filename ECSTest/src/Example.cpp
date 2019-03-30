@@ -100,12 +100,9 @@ void Example::Run(){
 
 		inputSystem->GetUserInput();
 		physicsSystem->HandleUserInput();
-		physicsSystem->ApplyHorizontalPhysics();
+		physicsSystem->ApplyPhysics();
 		collisionSystem->CheckCollisions();
-		physicsSystem->HandleHorizontalCollisions();
-		physicsSystem->ApplyVerticalPhysics();
-		collisionSystem->CheckCollisions();
-		physicsSystem->HandleVerticalCollisions();
+		physicsSystem->HandleCollisions();
 		renderSystem->Draw();
 	}
 }
