@@ -1,7 +1,7 @@
 #include "Example.h"
 #include <iostream>
 #include "kecs/KECS.h"
-#include "Components/c_position.h"
+#include "Components/c_transform.h"
 #include "Components/c_rect.h"
 #include "Tags.h"
 #include "Components/c_input.h"
@@ -31,12 +31,12 @@ Example::~Example()
 
 void Example::Run(){
 
-	EntityManager::SetUpComponents<Position, Rect, UserInput, Sprite, Physics>();
+	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 	int ent0 = EntityManager::CreateEntity();
 	EntityManager::AddTag<Player>(ent0);
-	EntityManager::AddComponent<Position>(ent0);
+	EntityManager::AddComponent<Transform>(ent0);
 	EntityManager::AddComponent<Rect>(ent0);
 	EntityManager::AddComponent<UserInput>(ent0);
 	//EntityManager::AddComponent<Sprite>(ent0);
@@ -58,19 +58,18 @@ void Example::Run(){
 	Rect boxRect;
 	boxRect.width = 100;
 	boxRect.height = 100;
-	Position initialBoxPosition;
-	initialBoxPosition.x = 100;
-	initialBoxPosition.y = 400;
+	Transform initialTransform;
+	initialTransform.position.SetValues(100, 400);
 
 	int numHBoxes = 5;
 	for (int i = 0; i < numHBoxes; ++i)
 	{
 		int entity = EntityManager::CreateEntity();
-		EntityManager::AddComponent<Position>(entity);
+		EntityManager::AddComponent<Transform>(entity);
 		EntityManager::AddComponent<Rect>(entity);
-		Position& pos = EntityManager::GetComponent<Position>(entity);
-		pos.x = initialBoxPosition.x + boxRect.width * i;
-		pos.y = initialBoxPosition.y;
+		Transform& trans = EntityManager::GetComponent<Transform>(entity);
+		trans.position.SetX(initialTransform.position.GetX() + boxRect.width * i);
+		trans.position.SetY(initialTransform.position.GetY());
 		EntityManager::SetComponent<Rect>(entity, boxRect);
 		EntityManager::SetComponent<Sprite>(entity, sprite);
 	}
@@ -78,11 +77,11 @@ void Example::Run(){
 	for (int i = 0; i < numVBoxes; ++i)
 	{
 		int entity = EntityManager::CreateEntity();
-		EntityManager::AddComponent<Position>(entity);
+		EntityManager::AddComponent<Transform>(entity);
 		EntityManager::AddComponent<Rect>(entity);
-		Position& pos = EntityManager::GetComponent<Position>(entity);
-		pos.x = initialBoxPosition.x;
-		pos.y = initialBoxPosition.y - boxRect.height * i;
+		Transform& trans = EntityManager::GetComponent<Transform>(entity);
+		trans.position.SetX(initialTransform.position.GetX());
+		trans.position.SetY(initialTransform.position.GetY() - boxRect.height * i);
 		EntityManager::SetComponent<Rect>(entity, boxRect);
 		EntityManager::SetComponent<Sprite>(entity, sprite);
 

@@ -136,6 +136,7 @@ public:
 
 	void SetX(float x) { internalArray[0] = x; }
 	void SetY(float y) { internalArray[1] = y; }
+	void SetValues(float x, float y) { SetX(x); SetY(y); }
 
 	static float Dot(const Vector2& v1, const Vector2& v2)
 	{

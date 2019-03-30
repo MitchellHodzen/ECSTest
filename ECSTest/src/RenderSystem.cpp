@@ -1,6 +1,6 @@
 #include "RenderSystem.h"
 #include "kecs/KECS.h"
-#include "Components/c_position.h"
+#include "Components/c_transform.h"
 #include "Components/c_rect.h"
 #include "Components/c_sprite.h"
 #include "Texture.h"
@@ -41,17 +41,17 @@ void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextEle
 
 	SDL_RenderClear(sdlRenderer);
 
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Rect, Sprite>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Rect, Sprite>();
 
 	for (int entityIndex : entities)
 	{
 		//Render red filled quad 
 		Rect& rect = EntityManager::GetComponent<Rect>(entityIndex);
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
+		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Sprite& sprite = EntityManager::GetComponent<Sprite>(entityIndex);
 		Texture* text = sprite.texture;
 		SDL_Rect sdlRect{ 0, 0, text->GetWidth(), text->GetHeight() };
-		RenderTexture(text, pos.x, pos.y, sdlRect);
+		RenderTexture(text, trans.position.GetX(), trans.position.GetY(), sdlRect);
 		//SDL_Rect fillRect = { pos.x + rect.offsetX, pos.y + rect.offsetY, rect.width, rect.height };
 		//SDL_SetRenderDrawColor(sdlRenderer, 0xFF, 0x00, 0x00, 0xFF);
 		//SDL_RenderFillRect(sdlRenderer, &fillRect);

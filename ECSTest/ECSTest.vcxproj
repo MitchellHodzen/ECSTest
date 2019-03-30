@@ -153,7 +153,7 @@
     <ClInclude Include="include\ECS\EntityManager.h" />
     <ClInclude Include="include\Example.h" />
     <ClInclude Include="include\Components\c_test.h" />
-    <ClInclude Include="include\Components\c_position.h" />
+    <ClInclude Include="include\Components\c_transform.h" />
     <ClInclude Include="include\kecs\KECS.h" />
     <ClInclude Include="include\MessageManager.h" />
     <ClInclude Include="include\Messages\m_collision.h" />

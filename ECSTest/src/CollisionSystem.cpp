@@ -1,6 +1,6 @@
 #include "CollisionSystem.h"
 #include "kecs/KECS.h"
-#include "Components/c_position.h"
+#include "Components/c_transform.h"
 #include "Components/c_rect.h"
 #include "Components/c_physics.h"
 #include "MessageManager.h"
@@ -15,20 +15,16 @@ CollisionSystem::~CollisionSystem()
 {
 }
 
-bool CollisionSystem::RectsColliding(Rect rect1, Position pos1, Rect rect2, Position pos2)
+bool CollisionSystem::RectsColliding(Rect& rect1, Vector2& pos1, Rect& rect2, Vector2& pos2)
 {
 
-	Position rectPos1;
-	Position rectPos2;
-	rectPos1.x = pos1.x + rect1.offsetX;
-	rectPos1.y = pos1.y + rect1.offsetY;
-	rectPos2.x = pos2.x + rect2.offsetX;
-	rectPos2.y = pos2.y + rect2.offsetY;
+	Vector2 rectPos1(pos1.GetX() + rect1.offsetX, pos1.GetY() + rect1.offsetY);
+	Vector2 rectPos2(pos2.GetX() + rect2.offsetX, pos2.GetY() + rect2.offsetY);
 
-	if ((rectPos1.x < rectPos2.x + rect2.width) &&
-		(rectPos1.x + rect1.width > rectPos2.x) &&
-		(rectPos1.y < rectPos2.y + rect2.height) &&
-		(rectPos1.y + rect1.height > rectPos2.y))
+	if ((rectPos1.GetX() < rectPos2.GetX() + rect2.width) &&
+		(rectPos1.GetX() + rect1.width > rectPos2.GetX()) &&
+		(rectPos1.GetY() < rectPos2.GetY() + rect2.height) &&
+		(rectPos1.GetY() + rect1.height > rectPos2.GetY()))
 	{
 		return true;
 	}
@@ -37,8 +33,8 @@ bool CollisionSystem::RectsColliding(Rect rect1, Position pos1, Rect rect2, Posi
 
 void CollisionSystem::CheckCollisions()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Physics, Rect>(); //Only entities with physics will collide
-	std::vector<int> collidableEntities = EntityManager::GetEntitiesWithComponent<Position, Rect>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Physics, Rect>(); //Only entities with physics will collide
+	std::vector<int> collidableEntities = EntityManager::GetEntitiesWithComponent<Transform, Rect>();
 	for (int entityIndex : entities)
 	{
 		for (int otherEntityIndex : collidableEntities)
@@ -46,11 +42,11 @@ void CollisionSystem::CheckCollisions()
 			if (entityIndex != otherEntityIndex)
 			{
 				Rect& rect1 = EntityManager::GetComponent<Rect>(entityIndex);
-				Position& pos1 = EntityManager::GetComponent<Position>(entityIndex);
+				Transform& trans1 = EntityManager::GetComponent<Transform>(entityIndex);
 				Rect& rect2 = EntityManager::GetComponent<Rect>(otherEntityIndex);
-				Position& pos2 = EntityManager::GetComponent<Position>(otherEntityIndex);
+				Transform& trans2 = EntityManager::GetComponent<Transform>(otherEntityIndex);
 
-				if (RectsColliding(rect1, pos1, rect2, pos2))
+				if (RectsColliding(rect1, trans1.position, rect2, trans2.position))
 				{
 					CollisionMessage message(entityIndex, otherEntityIndex);
 					MessageManager::PushMessage<CollisionMessage>(message);

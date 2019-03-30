@@ -1,6 +1,6 @@
 #include "PhysicsSystem.h"
 #include "kecs/KECS.h"
-#include "Components/c_position.h"
+#include "Components/c_transform.h"
 #include "Components/c_physics.h"
 #include "Components/c_rect.h"
 #include "Components/c_input.h"
@@ -60,14 +60,7 @@ void PhysicsSystem::HandleCollisions()
 	{
 		CollisionMessage message = MessageManager::PopMessage<CollisionMessage>();
 		Rect& rect1 = EntityManager::GetComponent<Rect>(message.entityOneIndex);
-		Position& pos1 = EntityManager::GetComponent<Position>(message.entityOneIndex);
 		Rect& rect2 = EntityManager::GetComponent<Rect>(message.entityTwoIndex);
-		Position& pos2 = EntityManager::GetComponent<Position>(message.entityTwoIndex);
-
-		Position rectPos1;
-		Position rectPos2;
-		rectPos1.x = pos1.x + rect1.offsetX;
-		rectPos2.x = pos2.x + rect2.offsetX;
 
 		//Do collision handling here
 		/*
@@ -87,18 +80,15 @@ void PhysicsSystem::HandleCollisions()
 
 void PhysicsSystem::ApplyPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Position, Physics>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Physics>();
 	for (int entityIndex : entities)
 	{
-		Position& pos = EntityManager::GetComponent<Position>(entityIndex);
+		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
 		phys.velocity.SetX(phys.velocity.GetX() * phys.maxSpeed);
-
-		pos.x += phys.velocity.GetX() * Time::GetDeltaTime();
-
 		phys.velocity.SetY(phys.velocity.GetY() * phys.maxSpeed);
 
-		pos.y += phys.velocity.GetY() * Time::GetDeltaTime();
+		trans.position += phys.velocity * Time::GetDeltaTime();
 	}
 }
