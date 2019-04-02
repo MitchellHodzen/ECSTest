@@ -48,7 +48,7 @@ void Example::Run(){
 	EntityManager::SetComponent<Rect>(ent0, rect);
 
 	Sprite sprite;
-	sprite.texture = resourceManager->GetTexture("Ship1");
+	sprite.texture = resourceManager->GetTexture(ResourceManager::SpriteKey::Player);
 	EntityManager::SetComponent<Sprite>(ent0, sprite);
 
 	Physics physics;

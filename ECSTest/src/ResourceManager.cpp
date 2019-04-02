@@ -16,10 +16,10 @@ ResourceManager::~ResourceManager()
 bool ResourceManager::LoadSprites(RenderSystem* renderSystem)
 {
 
-	return LoadSprite("./Resources/Sprites/ship1.png", "Ship1", renderSystem);
+	return LoadSprite("./Resources/Sprites/ship1.png", SpriteKey::Player, renderSystem);
 }
 
-bool ResourceManager::LoadSprite(std::string path, std::string key, RenderSystem* renderSystem)
+bool ResourceManager::LoadSprite(std::string path, SpriteKey key, RenderSystem* renderSystem)
 {
 	Texture* texture = new Texture();
 	bool success = texture->LoadTexture(path, renderSystem);
@@ -30,7 +30,7 @@ bool ResourceManager::LoadSprite(std::string path, std::string key, RenderSystem
 	return success;
 }
 
-Texture* ResourceManager::GetTexture(std::string key)
+Texture* ResourceManager::GetTexture(SpriteKey key)
 {
 	if (texturePointerMap->count(key))
 	{

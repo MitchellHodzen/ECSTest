@@ -9,15 +9,17 @@ class RenderSystem;
 class ResourceManager
 {
 public:
+	enum class SpriteKey { Player, Bullet };
+
 	ResourceManager(RenderSystem* renderSystem);
 	~ResourceManager();
-	Texture* GetTexture(std::string key);
+	Texture* GetTexture(SpriteKey key);
 
 private:
-	std::unordered_map<std::string, Texture*>* texturePointerMap = new std::unordered_map<std::string, Texture*>();;
+	std::unordered_map<SpriteKey, Texture*>* texturePointerMap = new std::unordered_map<SpriteKey, Texture*>();;
 
 	bool LoadSprites(RenderSystem* renderSystem);
 	void UnloadSprites();
-	bool LoadSprite(std::string path, std::string key, RenderSystem* renderSystem);
+	bool LoadSprite(std::string path, SpriteKey key, RenderSystem* renderSystem);
 };
 
