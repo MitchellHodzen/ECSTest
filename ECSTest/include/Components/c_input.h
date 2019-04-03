@@ -3,16 +3,16 @@
 #include <vector>
 struct UserInput
 {
-	enum InputType { LEFT, RIGHT, UP, DOWN, CLOSE};
+	enum InputType { LEFT, RIGHT, UP, DOWN, SPACE, CLOSE};
 
 	UserInput()
 	{
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < 5; ++i)
 		{
 			keyStates[i] = false;
 		}
 	}
 
-	bool keyStates[4];
+	bool keyStates[5];
 
 };

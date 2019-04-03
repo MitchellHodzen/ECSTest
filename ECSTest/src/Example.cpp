@@ -55,6 +55,19 @@ void Example::Run(){
 	physics.maxSpeed = 200;
 	EntityManager::SetComponent<Physics>(ent0, physics);
 
+	int bullet1 = EntityManager::CreateEntity();
+	Transform bulletTransform;
+	bulletTransform.position.SetValues(300, 300);
+	EntityManager::SetComponent<Transform>(bullet1, bulletTransform);
+	Sprite bulletSprite;
+	bulletSprite.texture = resourceManager->GetTexture(ResourceManager::SpriteKey::Bullet);
+	EntityManager::SetComponent<Sprite>(bullet1, bulletSprite);
+	Physics bulletPhysics;
+	bulletPhysics.velocity.SetValues(0, -500);
+	bulletPhysics.maxSpeed = 200;
+	EntityManager::SetComponent<Physics>(bullet1, bulletPhysics);
+
+
 	Rect boxRect;
 	boxRect.width = 100;
 	boxRect.height = 100;

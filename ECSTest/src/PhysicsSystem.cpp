@@ -51,6 +51,8 @@ void PhysicsSystem::HandleUserInput()
 		{
 			phys.velocity.SetX(0);
 		}
+
+		phys.velocity *= phys.maxSpeed;
 	}
 }
 
@@ -85,8 +87,6 @@ void PhysicsSystem::ApplyPhysics()
 	{
 		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
-
-		phys.velocity *= phys.maxSpeed;
 
 		trans.position += phys.velocity * Time::GetDeltaTime();
 	}

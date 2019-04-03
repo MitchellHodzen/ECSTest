@@ -41,12 +41,12 @@ void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextEle
 
 	SDL_RenderClear(sdlRenderer);
 
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Rect, Sprite>();
+	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Sprite>();
 
 	for (int entityIndex : entities)
 	{
 		//Render red filled quad 
-		Rect& rect = EntityManager::GetComponent<Rect>(entityIndex);
+		//Rect& rect = EntityManager::GetComponent<Rect>(entityIndex);
 		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Sprite& sprite = EntityManager::GetComponent<Sprite>(entityIndex);
 		Texture* text = sprite.texture;

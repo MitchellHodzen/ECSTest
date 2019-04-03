@@ -16,11 +16,14 @@ ResourceManager::~ResourceManager()
 bool ResourceManager::LoadSprites(RenderSystem* renderSystem)
 {
 
-	return LoadSprite("./Resources/Sprites/ship1.png", SpriteKey::Player, renderSystem);
+	return LoadSprite("./Resources/Sprites/ship1.png", SpriteKey::Player, renderSystem)
+	&& LoadSprite("./Resources/Sprites/bullet1.png", SpriteKey::Bullet, renderSystem);
+
 }
 
 bool ResourceManager::LoadSprite(std::string path, SpriteKey key, RenderSystem* renderSystem)
 {
+	std::cout << "Loading Sprite at " << path << std::endl;
 	Texture* texture = new Texture();
 	bool success = texture->LoadTexture(path, renderSystem);
 	if (success)
