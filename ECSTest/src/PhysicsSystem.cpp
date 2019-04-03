@@ -88,6 +88,16 @@ void PhysicsSystem::ApplyPhysics()
 		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
 		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
 
-		trans.position += phys.velocity * Time::GetDeltaTime();
+		//Apply delta time to velocity and assign the resulting vector to the movement vector
+		Vector2 movementVector = phys.velocity * Time::GetDeltaTime();
+
+		//Clamping speed to max speed
+		if (movementVector.GetMagnitude() > phys.maxSpeed)
+		{
+			movementVector.SetMagnitude(phys.maxSpeed);
+		}
+		
+		//Delta time has already been applied
+		trans.position += movementVector;// *Time::GetDeltaTime();
 	}
 }

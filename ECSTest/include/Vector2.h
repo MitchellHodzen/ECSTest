@@ -182,11 +182,24 @@ public:
 		return sqrt((GetX() * GetX()) + (GetY() * GetY()));
 	}
 
+	void SetMagnitude(float magnitude)
+	{
+		Normalize();
+		Vector2::MultiplyByScalar(*this, magnitude);
+	}
+
 	Vector2 Normalized() const
 	{
 		float mag = this->GetMagnitude();
 		return Vector2(GetX() / mag, GetY() / mag);
 	}
+
+	void Normalize()
+	{
+		float mag = GetMagnitude();
+		SetValues( GetX() / mag, GetY() / mag);
+	}
+
 
 private:
 	float* internalArray = new float[2];
