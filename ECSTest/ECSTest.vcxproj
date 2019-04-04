@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Factories\PlayerShipFactory.cpp" />
     <ClCompile Include="src\PhysicsSystem.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\InputSystem.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="include\InputSystem.h" />
     <ClInclude Include="include\PhysicsSystem.h" />
     <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="include\Factories\PlayerShipFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

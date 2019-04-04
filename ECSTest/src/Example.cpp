@@ -15,6 +15,7 @@
 #include "InputSystem.h"
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
+#include "Factories/PlayerShipFactory.h"
 
 
 Example::Example(int screenWidth, int screenHeight)
@@ -34,26 +35,7 @@ void Example::Run(){
 	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
-	int ent0 = EntityManager::CreateEntity();
-	EntityManager::AddTag<Player>(ent0);
-	EntityManager::AddComponent<Transform>(ent0);
-	EntityManager::AddComponent<Rect>(ent0);
-	EntityManager::AddComponent<UserInput>(ent0);
-	//EntityManager::AddComponent<Sprite>(ent0);
-	Rect rect;
-	rect.width = 50;
-	rect.height = 50;
-	rect.offsetX = -rect.width / 2;
-	rect.offsetY = -rect.height / 2;
-	EntityManager::SetComponent<Rect>(ent0, rect);
-
-	Sprite sprite;
-	sprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Player);
-	EntityManager::SetComponent<Sprite>(ent0, sprite);
-
-	Physics physics;
-	physics.maxSpeed = 200;
-	EntityManager::SetComponent<Physics>(ent0, physics);
+	int player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
 
 	int bullet1 = EntityManager::CreateEntity();
 	Transform bulletTransform;
