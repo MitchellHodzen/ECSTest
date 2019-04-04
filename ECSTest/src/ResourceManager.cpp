@@ -2,15 +2,21 @@
 #include "Texture.h"
 #include "RenderSystem.h"
 
-ResourceManager::ResourceManager(RenderSystem* renderSystem)
-{
-	LoadSprites(renderSystem);
-}
-
-
 ResourceManager::~ResourceManager()
 {
 	UnloadSprites();
+}
+
+ResourceManager& ResourceManager::GetInstance()
+{
+	//No need to check if the instance exists, C++ won't create another static instance
+	//Also thread safe by default, C++ automatically locks on instance creation
+	static ResourceManager instance;
+	return instance;
+}
+
+bool ResourceManager::Initialize(RenderSystem* renderSystem) {
+	return LoadSprites(renderSystem);
 }
 
 bool ResourceManager::LoadSprites(RenderSystem* renderSystem)

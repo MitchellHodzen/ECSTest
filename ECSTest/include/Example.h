@@ -2,7 +2,6 @@
 #include <SDL.h>
 
 class InputSystem;
-class ResourceManager;
 class RenderSystem;
 class CollisionSystem;
 class PhysicsSystem;
@@ -21,7 +20,6 @@ private:
 	bool quit = false;
 
 	InputSystem* inputSystem;
-	ResourceManager* resourceManager;
 	RenderSystem* renderSystem;
 	CollisionSystem* collisionSystem;
 	PhysicsSystem* physicsSystem;

@@ -48,7 +48,7 @@ void Example::Run(){
 	EntityManager::SetComponent<Rect>(ent0, rect);
 
 	Sprite sprite;
-	sprite.texture = resourceManager->GetTexture(ResourceManager::SpriteKey::Player);
+	sprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Player);
 	EntityManager::SetComponent<Sprite>(ent0, sprite);
 
 	Physics physics;
@@ -60,45 +60,13 @@ void Example::Run(){
 	bulletTransform.position.SetValues(300, 300);
 	EntityManager::SetComponent<Transform>(bullet1, bulletTransform);
 	Sprite bulletSprite;
-	bulletSprite.texture = resourceManager->GetTexture(ResourceManager::SpriteKey::Bullet);
+	bulletSprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Bullet);
 	EntityManager::SetComponent<Sprite>(bullet1, bulletSprite);
 	Physics bulletPhysics;
 	bulletPhysics.velocity.SetValues(0, -500);
 	bulletPhysics.maxSpeed = 200;
 	EntityManager::SetComponent<Physics>(bullet1, bulletPhysics);
 
-
-	Rect boxRect;
-	boxRect.width = 100;
-	boxRect.height = 100;
-	Transform initialTransform;
-	initialTransform.position.SetValues(100, 400);
-
-	int numHBoxes = 5;
-	for (int i = 0; i < numHBoxes; ++i)
-	{
-		int entity = EntityManager::CreateEntity();
-		EntityManager::AddComponent<Transform>(entity);
-		EntityManager::AddComponent<Rect>(entity);
-		Transform& trans = EntityManager::GetComponent<Transform>(entity);
-		trans.position.SetX(initialTransform.position.GetX() + boxRect.width * i);
-		trans.position.SetY(initialTransform.position.GetY());
-		EntityManager::SetComponent<Rect>(entity, boxRect);
-		EntityManager::SetComponent<Sprite>(entity, sprite);
-	}
-	int numVBoxes = 3;
-	for (int i = 0; i < numVBoxes; ++i)
-	{
-		int entity = EntityManager::CreateEntity();
-		EntityManager::AddComponent<Transform>(entity);
-		EntityManager::AddComponent<Rect>(entity);
-		Transform& trans = EntityManager::GetComponent<Transform>(entity);
-		trans.position.SetX(initialTransform.position.GetX());
-		trans.position.SetY(initialTransform.position.GetY() - boxRect.height * i);
-		EntityManager::SetComponent<Rect>(entity, boxRect);
-		EntityManager::SetComponent<Sprite>(entity, sprite);
-
-	}
 
 	float deltaTime = 0.0f;
 	Uint32 lastFrameTime = 0;
@@ -121,7 +89,7 @@ void Example::Run(){
 
 void Example::SetUp() {
 	renderSystem = new RenderSystem(screenWidth, screenHeight);
-	resourceManager = new ResourceManager(renderSystem);
+	ResourceManager::GetInstance().Initialize(renderSystem);
 	inputSystem = new InputSystem();
 	collisionSystem = new CollisionSystem();
 	physicsSystem = new PhysicsSystem();
