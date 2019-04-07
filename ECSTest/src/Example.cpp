@@ -30,14 +30,15 @@ Example::~Example()
 {
 }
 
+
 void Example::Run(){
 
 	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
-	int player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
+	Entity player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
 
-	int bullet1 = EntityManager::CreateEntity();
+	Entity bullet1 = EntityManager::CreateEntity();
 	Transform bulletTransform;
 	bulletTransform.position.SetValues(300, 300);
 	EntityManager::SetComponent<Transform>(bullet1, bulletTransform);

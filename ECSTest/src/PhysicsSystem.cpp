@@ -21,12 +21,12 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::HandleUserInput()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Physics, UserInput>();
+	std::vector<Entity> entities = EntityManager::GetEntitiesWithComponent<Physics, UserInput>();
 
-	for (int entityIndex : entities)
+	for (Entity entity : entities)
 	{
-		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
+		Physics& phys = EntityManager::GetComponent<Physics>(entity);
+		UserInput& uin = EntityManager::GetComponent<UserInput>(entity);
 		if (uin.keyStates[UserInput::InputType::UP])
 		{
 			phys.velocity.SetY(-1);
@@ -61,8 +61,8 @@ void PhysicsSystem::HandleCollisions()
 	while (MessageManager::NotEmpty<CollisionMessage>())
 	{
 		CollisionMessage message = MessageManager::PopMessage<CollisionMessage>();
-		Rect& rect1 = EntityManager::GetComponent<Rect>(message.entityOneIndex);
-		Rect& rect2 = EntityManager::GetComponent<Rect>(message.entityTwoIndex);
+		Rect& rect1 = EntityManager::GetComponent<Rect>(message.entityOne);
+		Rect& rect2 = EntityManager::GetComponent<Rect>(message.entityTwo);
 
 		//Do collision handling here
 		/*
@@ -82,11 +82,11 @@ void PhysicsSystem::HandleCollisions()
 
 void PhysicsSystem::ApplyPhysics()
 {
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<Transform, Physics>();
-	for (int entityIndex : entities)
+	std::vector<Entity> entities = EntityManager::GetEntitiesWithComponent<Transform, Physics>();
+	for (Entity entity : entities)
 	{
-		Transform& trans = EntityManager::GetComponent<Transform>(entityIndex);
-		Physics& phys = EntityManager::GetComponent<Physics>(entityIndex);
+		Transform& trans = EntityManager::GetComponent<Transform>(entity);
+		Physics& phys = EntityManager::GetComponent<Physics>(entity);
 
 		//Apply delta time to velocity and assign the resulting vector to the movement vector
 		Vector2 movementVector = phys.velocity * Time::GetDeltaTime();

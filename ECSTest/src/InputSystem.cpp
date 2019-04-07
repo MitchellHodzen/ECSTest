@@ -22,14 +22,14 @@ void InputSystem::GetUserInput()
 		}
 	}
 
-	std::vector<int> entities = EntityManager::GetEntitiesWithComponent<UserInput>();
+	std::vector<Entity> entities = EntityManager::GetEntitiesWithComponent<UserInput>();
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 	//For every entity which captures user input, record user input
-	for (int entityIndex : entities)
+	for (Entity entity : entities)
 	{
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entityIndex);
+		UserInput& uin = EntityManager::GetComponent<UserInput>(entity);
 
 		uin.keyStates[UserInput::InputType::UP] = currentKeyStates[SDL_SCANCODE_UP];
 		uin.keyStates[UserInput::InputType::DOWN] = currentKeyStates[SDL_SCANCODE_DOWN];

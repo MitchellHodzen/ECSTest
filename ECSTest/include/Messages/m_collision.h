@@ -1,11 +1,12 @@
 #pragma once
+#include "kecs/KECS.h"
 struct CollisionMessage
 {
-	CollisionMessage(int entityOneIndex, int entityTwoIndex)
+	CollisionMessage(Entity entityOne, Entity entityTwo)
 	{
-		this->entityOneIndex = entityOneIndex;
-		this->entityTwoIndex = entityTwoIndex;
+		this->entityOne = entityOne;
+		this->entityTwo = entityTwo;
 	};
-	int entityOneIndex;
-	int entityTwoIndex;
+	Entity entityOne;
+	Entity entityTwo;
 };

@@ -9,9 +9,9 @@
 #include "ResourceManager.h"
 
 
-int PlayerShipFactory::ConstructPlayerShip(int posX, int posY)
+Entity PlayerShipFactory::ConstructPlayerShip(int posX, int posY)
 {
-	int playerShip = EntityManager::CreateEntity();
+	Entity playerShip = EntityManager::CreateEntity();
 	EntityManager::AddTag<Player>(playerShip);
 	EntityManager::AddComponent<UserInput>(playerShip);
 

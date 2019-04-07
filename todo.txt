@@ -1,0 +1,1 @@
+get component returns garbage if the entity does not have the component, or the entity does not exist
