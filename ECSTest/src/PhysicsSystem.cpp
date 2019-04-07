@@ -19,43 +19,6 @@ PhysicsSystem::~PhysicsSystem()
 {
 }
 
-void PhysicsSystem::HandleUserInput()
-{
-	std::vector<Entity> entities = EntityManager::GetEntitiesWithComponent<Physics, UserInput>();
-
-	for (Entity entity : entities)
-	{
-		Physics& phys = EntityManager::GetComponent<Physics>(entity);
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entity);
-		if (uin.keyStates[UserInput::InputType::UP])
-		{
-			phys.velocity.SetY(-1);
-		}
-		else if (uin.keyStates[UserInput::InputType::DOWN])
-		{
-			phys.velocity.SetY(1);
-		}
-		else
-		{
-			phys.velocity.SetY(0);
-		}
-		if (uin.keyStates[UserInput::InputType::LEFT])
-		{
-			phys.velocity.SetX(-1);
-		}
-		else if (uin.keyStates[UserInput::InputType::RIGHT])
-		{
-			phys.velocity.SetX(1);
-		}
-		else
-		{
-			phys.velocity.SetX(0);
-		}
-
-		phys.velocity *= phys.maxSpeed;
-	}
-}
-
 void PhysicsSystem::HandleCollisions()
 {
 	while (MessageManager::NotEmpty<CollisionMessage>())

@@ -17,7 +17,8 @@
 #include "PhysicsSystem.h"
 #include "Factories/PlayerShipFactory.h"
 #include "Factories/BulletFactory.h"
-
+#include "Components/c_cannon.h"
+#include "BulletSystem.h"
 
 Example::Example(int screenWidth, int screenHeight)
 {
@@ -34,12 +35,11 @@ Example::~Example()
 
 void Example::Run(){
 
-	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics>();
+	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics, Cannon>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 	Entity player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
 
-	Entity bullet1 = BulletFactory::ConstructBullet(300, 300);
 
 	float deltaTime = 0.0f;
 	Uint32 lastFrameTime = 0;
@@ -52,8 +52,9 @@ void Example::Run(){
 		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
 
 		inputSystem->GetUserInput();
-		physicsSystem->HandleUserInput();
+		inputSystem->HandleUserInput();
 		physicsSystem->ApplyPhysics();
+		bulletSystem->FireBullets();
 		collisionSystem->CheckCollisions();
 		physicsSystem->HandleCollisions();
 		renderSystem->Draw();
@@ -66,4 +67,5 @@ void Example::SetUp() {
 	inputSystem = new InputSystem();
 	collisionSystem = new CollisionSystem();
 	physicsSystem = new PhysicsSystem();
+	bulletSystem = new BulletSystem();
 }

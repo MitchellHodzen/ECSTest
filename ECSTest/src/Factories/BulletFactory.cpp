@@ -6,23 +6,27 @@
 #include "ResourceManager.h"
 
 
-Entity BulletFactory::ConstructBullet(int posX, int posY)
+Entity BulletFactory::ConstructBullet(int posX, int posY, float speed)
 {
 
 	Entity bullet = EntityManager::CreateEntity();
 
-	Transform bulletTransform;
-	bulletTransform.position.SetValues(posX, posY);
-	EntityManager::SetComponent<Transform>(bullet, bulletTransform);
+	if (bullet != -1)
+	{
+		Transform bulletTransform;
+		bulletTransform.position.SetValues(posX, posY);
+		EntityManager::SetComponent<Transform>(bullet, bulletTransform);
 
-	Sprite bulletSprite;
-	bulletSprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Bullet);
-	EntityManager::SetComponent<Sprite>(bullet, bulletSprite);
+		Sprite bulletSprite;
+		bulletSprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Bullet);
+		EntityManager::SetComponent<Sprite>(bullet, bulletSprite);
 
-	Physics bulletPhysics;
-	bulletPhysics.velocity.SetValues(0, -500);
-	bulletPhysics.maxSpeed = 500;
-	EntityManager::SetComponent<Physics>(bullet, bulletPhysics);
+		Physics bulletPhysics;
+		bulletPhysics.velocity.SetValues(0, -speed);
+		bulletPhysics.maxSpeed = speed;
+		EntityManager::SetComponent<Physics>(bullet, bulletPhysics);
+
+	}
 
 	return bullet;
 }

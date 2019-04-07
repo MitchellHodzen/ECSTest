@@ -5,6 +5,7 @@ class InputSystem;
 class RenderSystem;
 class CollisionSystem;
 class PhysicsSystem;
+class BulletSystem;
 
 class Example
 {
@@ -23,5 +24,6 @@ private:
 	RenderSystem* renderSystem;
 	CollisionSystem* collisionSystem;
 	PhysicsSystem* physicsSystem;
+	BulletSystem* bulletSystem;
 };
 
