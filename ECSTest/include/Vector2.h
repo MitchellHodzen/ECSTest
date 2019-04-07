@@ -185,7 +185,7 @@ public:
 	void SetMagnitude(float magnitude)
 	{
 		Normalize();
-		Vector2::MultiplyByScalar(*this, magnitude);
+		*this *= magnitude;
 	}
 
 	Vector2 Normalized() const
