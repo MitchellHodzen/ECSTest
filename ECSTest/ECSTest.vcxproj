@@ -138,6 +138,7 @@
     <ClCompile Include="src\PhysicsSystem.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\InputSystem.cpp" />
+    <ClCompile Include="src\Factories\BulletFactory.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Example.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="include\kecs\KECS.h" />
     <ClInclude Include="include\MessageManager.h" />
     <ClInclude Include="include\Messages\m_collision.h" />
+    <ClInclude Include="include\Factories\BulletFactory.h" />
     <ClInclude Include="include\Stack.h" />
     <ClInclude Include="include\Tags.h" />
     <ClInclude Include="include\Time.h" />

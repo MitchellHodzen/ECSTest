@@ -16,6 +16,7 @@
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 #include "Factories/PlayerShipFactory.h"
+#include "Factories/BulletFactory.h"
 
 
 Example::Example(int screenWidth, int screenHeight)
@@ -38,18 +39,7 @@ void Example::Run(){
 
 	Entity player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
 
-	Entity bullet1 = EntityManager::CreateEntity();
-	Transform bulletTransform;
-	bulletTransform.position.SetValues(300, 300);
-	EntityManager::SetComponent<Transform>(bullet1, bulletTransform);
-	Sprite bulletSprite;
-	bulletSprite.texture = ResourceManager::GetInstance().GetTexture(ResourceManager::SpriteKey::Bullet);
-	EntityManager::SetComponent<Sprite>(bullet1, bulletSprite);
-	Physics bulletPhysics;
-	bulletPhysics.velocity.SetValues(0, -500);
-	bulletPhysics.maxSpeed = 200;
-	EntityManager::SetComponent<Physics>(bullet1, bulletPhysics);
-
+	Entity bullet1 = BulletFactory::ConstructBullet(300, 300);
 
 	float deltaTime = 0.0f;
 	Uint32 lastFrameTime = 0;
