@@ -1,9 +1,8 @@
 #include <iostream>
-#include "Example.h"
+#include "Game.h"
 int main(int argc, char *argv[])
 {
-	Example exec(800, 600); //224x288
-	exec.Run();
-	std::cin.get();
+	Game game(800, 600); //224x288
+	game.Run();
 	return 0;
 }

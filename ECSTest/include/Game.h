@@ -6,12 +6,12 @@ class CollisionSystem;
 class PhysicsSystem;
 class BulletSystem;
 
-class Example
+class Game
 {
 public:
-	Example(int screenWidth, int screenHeight);
+	Game(int screenWidth, int screenHeight);
 	void Run();
-	~Example();
+	~Game();
 private:
 	void SetUp();
 

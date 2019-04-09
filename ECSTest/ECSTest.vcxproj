@@ -142,7 +142,7 @@
     <ClCompile Include="src\Factories\BulletFactory.cpp" />
     <ClCompile Include="src\RenderSystem.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
-    <ClCompile Include="src\Example.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
@@ -156,7 +156,7 @@
     <ClInclude Include="include\Components\c_sprite.h" />
     <ClInclude Include="include\ECS\ECS.h" />
     <ClInclude Include="include\ECS\EntityManager.h" />
-    <ClInclude Include="include\Example.h" />
+    <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Components\c_test.h" />
     <ClInclude Include="include\Components\c_transform.h" />
     <ClInclude Include="include\kecs\KECS.h" />

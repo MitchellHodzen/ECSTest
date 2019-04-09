@@ -1,4 +1,4 @@
-#include "Example.h"
+#include "Game.h"
 #include <iostream>
 #include "kecs/KECS.h"
 #include "Components/c_transform.h"
@@ -17,7 +17,7 @@
 #include "Components/c_cannon.h"
 #include "BulletSystem.h"
 
-Example::Example(int screenWidth, int screenHeight)
+Game::Game(int screenWidth, int screenHeight)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
@@ -25,7 +25,7 @@ Example::Example(int screenWidth, int screenHeight)
 }
 
 
-Example::~Example()
+Game::~Game()
 {
 	delete inputSystem;
 	delete renderSystem;
@@ -35,7 +35,7 @@ Example::~Example()
 }
 
 
-void Example::Run(){
+void Game::Run(){
 
 	EntityManager::SetUpComponents<Transform, Rect, UserInput, Sprite, Physics, Cannon>();
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
@@ -56,7 +56,7 @@ void Example::Run(){
 	}
 }
 
-void Example::SetUp() {
+void Game::SetUp() {
 	renderSystem = new RenderSystem(screenWidth, screenHeight);
 	ResourceManager::GetInstance().Initialize(renderSystem);
 	inputSystem = new InputSystem();
