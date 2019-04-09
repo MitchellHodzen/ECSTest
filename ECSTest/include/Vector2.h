@@ -19,6 +19,13 @@ public:
 		this->SetY(source.GetY());
 	}
 
+	//Move Constructor
+	Vector2(Vector2&& other)
+	{
+		internalArray = other.internalArray;
+		other.internalArray = nullptr;
+	}
+
 	//Destructor
 	~Vector2()
 	{
@@ -36,6 +43,18 @@ public:
 		}
 		this->SetX(source.GetX());
 		this->SetY(source.GetY());
+		return *this;
+	}
+
+	//'=' Move Assignment Operator
+	Vector2& operator=(Vector2&& other)
+	{
+		if (this != &other)
+		{
+			delete[] internalArray;
+			internalArray = other.internalArray;
+			other.internalArray = nullptr;
+		}
 		return *this;
 	}
 
