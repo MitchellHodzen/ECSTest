@@ -7,8 +7,6 @@
 #include "Components/c_input.h"
 #include "Components/c_physics.h"
 #include "Time.h"
-#include "MessageManager.h"
-#include "Messages/m_collision.h"
 #include "RenderSystem.h"
 #include "ResourceManager.h"
 #include "Components/c_sprite.h"
@@ -16,7 +14,6 @@
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 #include "Factories/PlayerShipFactory.h"
-#include "Factories/BulletFactory.h"
 #include "Components/c_cannon.h"
 #include "BulletSystem.h"
 
@@ -30,6 +27,11 @@ Example::Example(int screenWidth, int screenHeight)
 
 Example::~Example()
 {
+	delete inputSystem;
+	delete renderSystem;
+	delete collisionSystem;
+	delete physicsSystem;
+	delete bulletSystem;
 }
 
 
