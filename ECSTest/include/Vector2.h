@@ -150,19 +150,23 @@ public:
 
 	//End Operator Overloading-------------------
 
+	//Getters
 	float GetX() const { return internalArray[0]; }
 	float GetY() const { return internalArray[1]; }
 
+	//Setters
 	void SetX(float x) { internalArray[0] = x; }
 	void SetY(float y) { internalArray[1] = y; }
 	void SetValues(float x, float y) { SetX(x); SetY(y); }
 
+	//Perform the dot product of two Vectors and return the result
 	static float Dot(const Vector2& v1, const Vector2& v2)
 	{
 		return (v1.GetX() * v2.GetX()) + (v1.GetY() * v2.GetY());
 	}
 
-	static Vector2 GetReflectionAngle(const Vector2& direction, const Vector2& normal)
+	//Return the resulting reflected vector of the direction and normal
+	static Vector2 GetReflectionVector(const Vector2& direction, const Vector2& normal)
 	{
 		//d-2(dot(d, n))n
 		float dotProduct = Vector2::Dot(direction, normal);
@@ -170,23 +174,31 @@ public:
 		return direction - scaledNormal;
 	}
 
+	//Returns the vector resulting from component wise multiplication of two vectors
 	static Vector2 ComponentWiseMultiplication(const Vector2& vec1, const Vector2& vec2)
 	{
 		return Vector2(vec1.GetX() * vec2.GetX(), vec1.GetY() * vec2.GetY());
 	}
+
+	//Returns the vector resulting from multiplying each component of a vector by the given scalar
 	static Vector2 MultiplyByScalar(const Vector2& vec, float scalar)
 	{
 		return Vector2(vec.GetX() * scalar, vec.GetY() * scalar);
 	}
+
+	//Returns the vector resulting from component wise addition of two vectors
 	static Vector2 ComponentWiseAddition(const Vector2& vec1, const Vector2& vec2)
 	{
 		return Vector2(vec1.GetX() + vec2.GetX(), vec1.GetY() + vec2.GetY());
 	}
+
+	//Returns the vector resulting from adding a scalar to each component of the given vector
 	static Vector2 AddScalar(const Vector2& vec, float scalar)
 	{
 		return Vector2(vec.GetX() + scalar, vec.GetY() + scalar);
 	}
 
+	//Returns true if all components of the two given vectors are equal
 	static bool CheckEqual(const Vector2& v1, const Vector2& v2)
 	{
 		if (v1.GetX() == v2.GetX() && v1.GetY() == v2.GetY())
@@ -196,23 +208,27 @@ public:
 		return false;
 	}
 
+	//Returns the magnitude of the vector
 	float GetMagnitude() const
 	{
 		return sqrt((GetX() * GetX()) + (GetY() * GetY()));
 	}
 
+	//Sets the magnitude of the vector
 	void SetMagnitude(float magnitude)
 	{
 		Normalize();
 		*this *= magnitude;
 	}
 
+	//Returns a new vector which results from normalizing the given vector
 	Vector2 Normalized() const
 	{
 		float mag = this->GetMagnitude();
 		return Vector2(GetX() / mag, GetY() / mag);
 	}
 
+	//Normalizes the given vector
 	void Normalize()
 	{
 		float mag = GetMagnitude();
@@ -221,5 +237,7 @@ public:
 
 
 private:
+
+	//The internal array where the two components are held
 	float* internalArray = new float[2];
 };
