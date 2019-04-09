@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL.h>
 
 class InputSystem;
 class RenderSystem;

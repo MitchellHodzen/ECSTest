@@ -42,16 +42,9 @@ void Example::Run(){
 
 	Entity player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
 
-
-	float deltaTime = 0.0f;
-	Uint32 lastFrameTime = 0;
-	Uint32 currentFrameTime = SDL_GetTicks();
-
 	while (!quit)
 	{
-		lastFrameTime = currentFrameTime;
-		currentFrameTime = SDL_GetTicks();
-		Time::CalculateDeltaTime(lastFrameTime, currentFrameTime);
+		Time::CalculateDeltaTime();
 
 		inputSystem->GetUserInput();
 		inputSystem->HandleUserInput();
