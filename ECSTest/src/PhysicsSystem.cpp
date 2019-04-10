@@ -24,8 +24,8 @@ void PhysicsSystem::HandleCollisions()
 	while (MessageManager::NotEmpty<CollisionMessage>())
 	{
 		CollisionMessage message = MessageManager::PopMessage<CollisionMessage>();
-		Rect& rect1 = EntityManager::GetComponent<Rect>(message.entityOne);
-		Rect& rect2 = EntityManager::GetComponent<Rect>(message.entityTwo);
+		Rect* rect1 = EntityManager::GetComponent<Rect>(message.entityOne);
+		Rect* rect2 = EntityManager::GetComponent<Rect>(message.entityTwo);
 
 		//Do collision handling here
 		/*
@@ -48,19 +48,19 @@ void PhysicsSystem::ApplyPhysics()
 	std::vector<Entity> entities = EntityManager::GetEntitiesWithComponent<Transform, Physics>();
 	for (Entity entity : entities)
 	{
-		Transform& trans = EntityManager::GetComponent<Transform>(entity);
-		Physics& phys = EntityManager::GetComponent<Physics>(entity);
+		Transform* trans = EntityManager::GetComponent<Transform>(entity);
+		Physics* phys = EntityManager::GetComponent<Physics>(entity);
 
 		//Clamping speed to max speed
-		if (phys.velocity.GetMagnitude() > phys.maxSpeed)
+		if (phys->velocity.GetMagnitude() > phys->maxSpeed)
 		{
-			phys.velocity.SetMagnitude(phys.maxSpeed);
+			phys->velocity.SetMagnitude(phys->maxSpeed);
 		}
 
 		//Apply delta time to velocity and assign the resulting vector to the movement vector
-		Vector2 movementVector = phys.velocity * Time::GetDeltaTime();
+		Vector2 movementVector = phys->velocity * Time::GetDeltaTime();
 
 		//Delta time has already been applied
-		trans.position += movementVector;// *Time::GetDeltaTime();
+		trans->position += movementVector;// *Time::GetDeltaTime();
 	}
 }

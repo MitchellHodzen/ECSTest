@@ -20,8 +20,8 @@ void BulletSystem::FireBullets()
 	while (MessageManager::NotEmpty<BulletFiredMessage>())
 	{
 		BulletFiredMessage message = MessageManager::PopMessage<BulletFiredMessage>();
-		Transform& trans = EntityManager::GetComponent<Transform>(message.firingEntity);
-		Cannon& cannon = EntityManager::GetComponent<Cannon>(message.firingEntity);
-		BulletFactory::ConstructBullet(trans.position.GetX(), trans.position.GetY(), cannon.bulletSpeed);
+		Transform* trans = EntityManager::GetComponent<Transform>(message.firingEntity);
+		Cannon* cannon = EntityManager::GetComponent<Cannon>(message.firingEntity);
+		BulletFactory::ConstructBullet(trans->position.GetX(), trans->position.GetY(), cannon->bulletSpeed);
 	}
 }

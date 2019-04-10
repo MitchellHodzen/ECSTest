@@ -47,11 +47,11 @@ void RenderSystem::Draw()//std::vector<Entity*>* entityList, std::vector<TextEle
 	{
 		//Render red filled quad 
 		//Rect& rect = EntityManager::GetComponent<Rect>(entityIndex);
-		Transform& trans = EntityManager::GetComponent<Transform>(entity);
-		Sprite& sprite = EntityManager::GetComponent<Sprite>(entity);
-		Texture* text = sprite.texture;
+		Transform* trans = EntityManager::GetComponent<Transform>(entity);
+		Sprite* sprite = EntityManager::GetComponent<Sprite>(entity);
+		Texture* text = sprite->texture;
 		SDL_Rect sdlRect{ 0, 0, text->GetWidth(), text->GetHeight() };
-		RenderTexture(text, trans.position.GetX(), trans.position.GetY(), sdlRect);
+		RenderTexture(text, trans->position.GetX(), trans->position.GetY(), sdlRect);
 		//SDL_Rect fillRect = { pos.x + rect.offsetX, pos.y + rect.offsetY, rect.width, rect.height };
 		//SDL_SetRenderDrawColor(sdlRenderer, 0xFF, 0x00, 0x00, 0xFF);
 		//SDL_RenderFillRect(sdlRenderer, &fillRect);

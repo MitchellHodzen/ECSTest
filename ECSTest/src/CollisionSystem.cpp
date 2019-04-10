@@ -41,12 +41,12 @@ void CollisionSystem::CheckCollisions()
 		{
 			if (entity != otherEntity)
 			{
-				Rect& rect1 = EntityManager::GetComponent<Rect>(entity);
-				Transform& trans1 = EntityManager::GetComponent<Transform>(entity);
-				Rect& rect2 = EntityManager::GetComponent<Rect>(otherEntity);
-				Transform& trans2 = EntityManager::GetComponent<Transform>(otherEntity);
+				Rect* rect1 = EntityManager::GetComponent<Rect>(entity);
+				Transform* trans1 = EntityManager::GetComponent<Transform>(entity);
+				Rect* rect2 = EntityManager::GetComponent<Rect>(otherEntity);
+				Transform* trans2 = EntityManager::GetComponent<Transform>(otherEntity);
 
-				if (RectsColliding(rect1, trans1.position, rect2, trans2.position))
+				if (RectsColliding(*rect1, trans1->position, *rect2, trans2->position))
 				{
 					CollisionMessage message(entity, otherEntity);
 					MessageManager::PushMessage<CollisionMessage>(message);

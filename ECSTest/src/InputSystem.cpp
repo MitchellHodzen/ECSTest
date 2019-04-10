@@ -33,13 +33,13 @@ void InputSystem::GetUserInput()
 	//For every entity which captures user input, record user input
 	for (Entity entity : entities)
 	{
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entity);
+		UserInput* uin = EntityManager::GetComponent<UserInput>(entity);
 
-		uin.keyStates[UserInput::InputType::UP] = currentKeyStates[SDL_SCANCODE_UP];
-		uin.keyStates[UserInput::InputType::DOWN] = currentKeyStates[SDL_SCANCODE_DOWN];
-		uin.keyStates[UserInput::InputType::LEFT] = currentKeyStates[SDL_SCANCODE_LEFT];
-		uin.keyStates[UserInput::InputType::RIGHT] = currentKeyStates[SDL_SCANCODE_RIGHT];
-		uin.keyStates[UserInput::InputType::SPACE] = currentKeyStates[SDL_SCANCODE_SPACE];
+		uin->keyStates[UserInput::InputType::UP] = currentKeyStates[SDL_SCANCODE_UP];
+		uin->keyStates[UserInput::InputType::DOWN] = currentKeyStates[SDL_SCANCODE_DOWN];
+		uin->keyStates[UserInput::InputType::LEFT] = currentKeyStates[SDL_SCANCODE_LEFT];
+		uin->keyStates[UserInput::InputType::RIGHT] = currentKeyStates[SDL_SCANCODE_RIGHT];
+		uin->keyStates[UserInput::InputType::SPACE] = currentKeyStates[SDL_SCANCODE_SPACE];
 
 	}
 }
@@ -50,36 +50,36 @@ void InputSystem::HandleUserInput()
 
 	for (Entity entity : entities)
 	{
-		Physics& phys = EntityManager::GetComponent<Physics>(entity);
-		UserInput& uin = EntityManager::GetComponent<UserInput>(entity);
-		if (uin.keyStates[UserInput::InputType::UP])
+		Physics* phys = EntityManager::GetComponent<Physics>(entity);
+		UserInput* uin = EntityManager::GetComponent<UserInput>(entity);
+		if (uin->keyStates[UserInput::InputType::UP])
 		{
-			phys.velocity.SetY(-1);
+			phys->velocity.SetY(-1);
 		}
-		else if (uin.keyStates[UserInput::InputType::DOWN])
+		else if (uin->keyStates[UserInput::InputType::DOWN])
 		{
-			phys.velocity.SetY(1);
-		}
-		else
-		{
-			phys.velocity.SetY(0);
-		}
-		if (uin.keyStates[UserInput::InputType::LEFT])
-		{
-			phys.velocity.SetX(-1);
-		}
-		else if (uin.keyStates[UserInput::InputType::RIGHT])
-		{
-			phys.velocity.SetX(1);
+			phys->velocity.SetY(1);
 		}
 		else
 		{
-			phys.velocity.SetX(0);
+			phys->velocity.SetY(0);
+		}
+		if (uin->keyStates[UserInput::InputType::LEFT])
+		{
+			phys->velocity.SetX(-1);
+		}
+		else if (uin->keyStates[UserInput::InputType::RIGHT])
+		{
+			phys->velocity.SetX(1);
+		}
+		else
+		{
+			phys->velocity.SetX(0);
 		}
 
-		phys.velocity *= phys.maxSpeed;
+		phys->velocity *= phys->maxSpeed;
 
-		if (uin.keyStates[UserInput::InputType::SPACE] && EntityManager::HasComponent<Cannon>(entity))
+		if (uin->keyStates[UserInput::InputType::SPACE] && EntityManager::HasComponent<Cannon>(entity))
 		{
 			BulletFiredMessage message(entity);
 			MessageManager::PushMessage<BulletFiredMessage>(message);
