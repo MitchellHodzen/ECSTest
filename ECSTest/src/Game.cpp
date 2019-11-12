@@ -14,6 +14,7 @@
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 #include "Factories/PlayerShipFactory.h"
+#include "Factories/EnemyFactory.h"
 #include "Components/c_cannon.h"
 #include "BulletSystem.h"
 
@@ -41,6 +42,8 @@ void Game::Run(){
 	EntityManager::SetUpTags<Player, Enemy, Wall>();
 
 	Entity player1 = PlayerShipFactory::ConstructPlayerShip(0, 0);
+
+	Entity enemy = EnemyFactory::ConstructEnemy(100, 100);
 
 	while (!quit)
 	{

@@ -9,7 +9,7 @@ class RenderSystem;
 class ResourceManager
 {
 public:
-	enum class SpriteKey { Player, Bullet };
+	enum class SpriteKey { Player, Bullet, Enemy};
 
 	static ResourceManager& GetInstance();
 	bool Initialize(RenderSystem* renderSystem);

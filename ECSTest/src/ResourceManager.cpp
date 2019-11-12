@@ -23,7 +23,8 @@ bool ResourceManager::LoadSprites(RenderSystem* renderSystem)
 {
 
 	return LoadSprite("./Resources/Sprites/ship1.png", SpriteKey::Player, renderSystem)
-	&& LoadSprite("./Resources/Sprites/bullet1.png", SpriteKey::Bullet, renderSystem);
+	&& LoadSprite("./Resources/Sprites/bullet1.png", SpriteKey::Bullet, renderSystem)
+	&& LoadSprite("./Resources/Sprites/enemy1.png", SpriteKey::Enemy, renderSystem);
 
 }
 
