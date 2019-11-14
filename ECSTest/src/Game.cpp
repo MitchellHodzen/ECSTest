@@ -17,6 +17,7 @@
 #include "Factories/EnemyFactory.h"
 #include "Components/c_cannon.h"
 #include "BulletSystem.h"
+#include "InputManager.h"
 
 Game::Game(int screenWidth, int screenHeight)
 {
@@ -48,7 +49,9 @@ void Game::Run(){
 	while (!quit)
 	{
 		Time::CalculateDeltaTime();
-
+		InputManager::GetInstance().UpdateInput();
+		quit = InputManager::GetInstance().ShouldQuit();
+		
 		inputSystem->GetUserInput();
 		inputSystem->HandleUserInput();
 		physicsSystem->ApplyPhysics();
