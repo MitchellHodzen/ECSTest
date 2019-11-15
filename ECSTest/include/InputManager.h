@@ -48,7 +48,6 @@ public:
 
 	bool GetKeyPressed(KeyboardKey key)
 	{
-		std::cout<<"Value: " << ConvertKeyboardKeyToScancode(key) << std::endl;
 		return pressedKeys[ConvertKeyboardKeyToScancode(key)];
 	}
 
@@ -72,8 +71,8 @@ private:
 
 	int keyArrayLength;
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(&keyArrayLength);
-	bool pressedKeys = new Uint8[keyArrayLength];
-	bool releasedKeys = new Uint8[keyArrayLength];
+	bool* pressedKeys = new bool[keyArrayLength];
+	bool* releasedKeys = new bool[keyArrayLength];
 	bool quit = false;
 
 	void ClearInputArrays()

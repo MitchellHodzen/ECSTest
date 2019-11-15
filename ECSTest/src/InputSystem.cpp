@@ -33,7 +33,7 @@ void InputSystem::GetUserInput()
 		uin->keyStates[UserInput::InputType::DOWN] = inputManager.GetKeyDown(InputManager::KeyboardKey::KEY_DOWN);
 		uin->keyStates[UserInput::InputType::LEFT] = inputManager.GetKeyDown(InputManager::KeyboardKey::KEY_LEFT);
 		uin->keyStates[UserInput::InputType::RIGHT] = inputManager.GetKeyDown(InputManager::KeyboardKey::KEY_RIGHT);
-		uin->keyStates[UserInput::InputType::SPACE] = inputManager.GetKeyDown(InputManager::KeyboardKey::KEY_SPACE);
+		uin->keyStates[UserInput::InputType::SPACE] = inputManager.GetKeyPressed(InputManager::KeyboardKey::KEY_SPACE);
 
 	}
 }
