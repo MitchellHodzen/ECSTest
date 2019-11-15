@@ -7,8 +7,4 @@ public:
 	~InputSystem();
 	void GetUserInput();
 	void HandleUserInput();
-
-
-private:
-	SDL_Event inputEvent;
 };

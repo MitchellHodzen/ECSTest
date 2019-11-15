@@ -15,6 +15,7 @@ POBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=%.o)
 OBJECTS = $(addprefix $(OBJDIR)/, $(POBJECTS))
 
 $(OUTPUT): $(OBJECTS)
+	@mkdir -p bin/debug
 	$(CC) $(OBJECTS) $(INCLUDES) $(LIBPATH) $(CLIBS) -std=$(CPPVERSION) -g -o $(DEBUGOUTPUTDIR)/$(OUTPUT)
 	@echo "\n"Debug build completed\; Enter $(DEBUGOUTPUTDIR)/$(OUTPUT) to run."\n"
 
